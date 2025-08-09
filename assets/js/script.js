@@ -7,7 +7,7 @@ if (bienvenida) {
         bienvenida.innerHTML = `${user} tenemos lo que andas buscando!`;
     }
     else {
-        const user = prompt("Ingrese su nombre.");
+        const user = prompt("Ingrese su nombre y apellido porfavor.");
         bienvenida.innerHTML = `${user} tenemos lo que andas buscando!`;
         localStorage.setItem("user", user);
     }
