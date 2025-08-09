@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecno Chile</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/detective.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/script.js" defer></script>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+            <div class="container-fluid">
+                <img class="nav__logo" src="#" alt="Logotipo Tecno Chile">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Quienes somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contacto</a>
+                        </li>
+                    </ul>
+                    <span class="">
+                        <img src="..." alt="Carrito de compras">
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+
+        <section class="hero">
+            <h1 class="hero__title">¡Bienvenidos a Tecno Chile !</h1>
+            <h2 id="bienvenida"></h2>
+            <div id="herocarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="4000">
+                        <img src="assets/img/slogan.jpg" class="d-block w-100" alt="carousel 1">
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="assets/img/carousel 2.jpg" class="d-block w-100" alt="carousel 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/img/carousel 3.jpg" class="d-block w-100" alt="carousel 3">
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#herocarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#herocarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+
+        </section>
+        <section class="categories">
+            <h1>Descubre nuestras categorías</h1>
+            <div id="carouselMultiImg" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="assets/images/categories/computadores.webp" class="d-block w-100"
+                                    alt="computadores">
+                            </div>
+                            <div class="col-3">
+                                <img src="assets/images/categories/impresoras.webp" class="d-block w-100"
+                                    alt="impresoras">
+                            </div>
+                            <div class="col-3">
+                                <img src="assets/images/categories/oficinas.webp" class="d-block w-100" alt="oficinas">
+                            </div>
+                            <div class="col-3">
+                                <img src="assets/images/categories/pdv.webp" class="d-block w-100" alt="pdv">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="assets/images/categories/servidores.webp" class="d-block w-100"
+                                    alt="servidores">
+                            </div>
+                            <div class="col-3">
+                                <img src="img6.jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="col-3">
+                                <img src="img7.jpg" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="col-3">
+                                <img src="img8.jpg" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselMultiImg"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselMultiImg"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+
+        </section>
+        <section class="offers">
+            <h1 class="offers__title">Ofertas solo por Agosto<img src="assets/img/oferta 128px.png" alt="Icono oferta">
+            </h1>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card h-100">
+                        <h5 class="card-title">Nombre Producto</h5>
+                        <img src="#" class="card-img-top" alt="Producto 1">
+                        <div class="card-body">
+                            <p class="card-text">Detalles del producto.
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item--old">$33.990</li>
+                                <li class="list-group-item--price">$23.990</li>
+                            </ul>
+                            <a href="productos.html" class="btn btn-dark">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <h5 class="card-title">Nombre Producto</h5>
+                        <img src="#" class="card-img-top" alt="Producto 2">
+                        <div class="card-body">
+                            <p class="card-text">Detalles del producto.
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item--old">$27.990</li>
+                                <li class="list-group-item--price">$17.990</li>
+                            </ul>
+                            <a href="productos.html" class="btn btn-dark">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <h5 class="card-title">Nombre Producto</h5>
+                        <img src="#" class="card-img-top" alt="Producto 3">
+                        <div class="card-body">
+                            <p class="card-text">Detalles del producto.
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item--old">$45.990</li>
+                                <li class="list-group-item--price">$35.990</li>
+                            </ul>
+                            <a href="productos.html" class="btn btn-dark">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <h1>Contáctanos</h1>
+        <section class="form">
+            <div class="mb-3">
+                <label for="FormControlInput1" class="form-label">Nombre completo</label>
+                <input class="form-control" id="exampleFormControlInput1" placeholder="¿Cómo te llamas?">
+            </div>
+            <div class="mb-3">
+                <label for="FormControlInput2" class="form-label">Correo electrónico</label>
+                <input class="form-control" id="exampleFormControlTextarea1" placeholder="Ingresa tu mail">
+            </div>
+            <div class="mb-3">
+                <label for="FormControlInput3" class="form-label">Asunto</label>
+                <input class="form-control" id="exampleFormControlTextarea1"
+                    placeholder="Contacto / Trabaja con nosotros/">
+            </div>
+            <div class="mb-3">
+                <label for="FormControlTextarea1" class="form-label">Mensaje</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    placeholder="Hola! Me gustaría más información sobre..."></textarea>
+            </div>
+            <div id="liveAlertPlaceholder"></div>
+            <button type="button" class="btn btn-dark" id="liveAlertBtn">Enviar</button>
+        </section>
+    </main>
+    <footer>
+        <section class="footer">
+            <p>© 2025 Tienda Digital. Todos los derechos reservados. ||</p>
+            <p class="footer__title"> Desarrolladores:</p>
+            <div class="footer__content">
+                <ul class="footer__text">
+                    <li><a href="#">Camila Collado</a></li>
+                    <li><a href="#">Daniel Paredes</a></li>
+                    <li><a href="#">Jesús Pérez</a></li>
+                </ul>
+            </div>
+        </section>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.js"></script>
+
+    <a href="https://wa.me/56912345678" class="whatsapp-button" target="_blank" aria-label="WhatsApp">
+        <i class="bi bi-whatsapp"></i>
+    </a>
+</body>
+
+</html>
