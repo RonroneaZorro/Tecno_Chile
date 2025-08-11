@@ -4,6 +4,12 @@
       box-sizing: border-box;
     }
 
+    ul,
+    ol,
+    a {
+      list-style: none;
+    }
+
     .carousel-item img {
       max-height: 500px;
       object-fit: cover;
@@ -13,6 +19,8 @@
       max-height: 180px;
       object-fit: cover;
     }
+
+    /* ---------- Botón de whatsapp ---------- */
 
     .whatsapp-button {
       position: fixed;
@@ -33,9 +41,22 @@
       background-color: #02732d;
     }
 
+    /* ---------- Body ---------- */
+
+    body {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #3a2222d7;
+      text-align: center;
+      background-color: rgba(236, 232, 222, 0.925);
+    }
+
+    /* ---------- Footer ---------- */
+
     .footer {
       font-size: .8rem;
       display: flex;
+      flex-direction: column; 
       justify-content: center;
       align-items: center;
       padding: 1rem;
@@ -45,37 +66,118 @@
       &__title {
         font-size: 1.2rem;
         text-align: center;
-        margin-bottom: 0;
-
-      }
-
-      &__text {
-        margin-bottom: 0;
-        font-size: 1.4rem;
-        text-shadow:
-          -1px -1px 0 #000,
-          /* arriba izquierda */
-          1px -1px 0 #000,
-          /* arriba derecha */
-          -1px 1px 0 #000,
-          /* abajo izquierda */
-          1px 1px 0 #000;
-        /* abajo derecha */
+        margin-bottom: 0.5rem;
       }
 
       &__content {
         list-style: none;
-        margin: 0;
+        display: flex;
+        gap: 10px;
         padding: 0;
+        margin: 0;
 
-        li {
-          display: inline-block;
-          margin: 5px;
-
-          & a {
-            text-decoration: none;
-            color: white;
-          }
+        a {
+          text-decoration: none;
+          color: white;
         }
       }
+
+      &__social {
+        display: flex;
+        gap: 10px;
+        margin-top: 0.5rem;
+
+        img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+
+    /* ---------- Ofertas ---------- */
+
+    .offers {
+      width: 80vw;
+      margin: auto;
+      margin-top: 20px;
+      margin-bottom: 30px;
+
+      &__title {}
+
+    }
+
+    /* ---------- Cards ---------- */
+
+    .card {
+      background-color: whitesmoke;
+      border: 2px solid #515253;
+      padding: 5px;
+      margin: 5px;
+      border-radius: 10px;
+
+      &-title {
+        color: #2d2d2e;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      &-img-top {
+        width: 70%;
+        margin: auto;
+        padding: 0;
+
+      }
+    }
+
+    .list-group-item--old {
+
+      color: red;
+      text-decoration: line-through;
+      font-size: 19px;
+
+    }
+
+    .list-group-item--price {
+
+      font-size: 18px;
+      color: rgb(43, 41, 41);
+      margin: 0;
+
+    }
+
+    /* ---------- Formulario de contacto ---------- */
+    .form {
+      width: 80vw;
+      margin: auto;
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
+
+    .form-label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-control {
+      border: 2px solid #515253;
+      padding: 8px;
+      margin-bottom: 15px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .form-control:focus {
+      border: 1px solid rgb(182, 31, 31);
+      box-shadow: 0 0 0 0.5rem rgba(77, 2, 2, 0.144);
+      outline: none;
+    }
+
+    /* ---------- Productos ---------- */
+
+    .products {
+      width: 80vw;
+      margin: auto;
+      margin-top: 20px;
+      margin-bottom: 30px;
     }
