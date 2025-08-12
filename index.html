@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="assets/img/detective.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/script.js" defer></script>
 
@@ -17,13 +18,13 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
             <div class="container-fluid">
-                <img class="nav__logo" src="#" alt="Logotipo Tecno Chile">
+                <img class="nav__logo" src="assets/images/logo/TecnoChile_blanco.svg" alt="Logotipo Tecno Chile">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
                         </li>
@@ -37,8 +38,8 @@
                             <a class="nav-link" href="#">Contacto</a>
                         </li>
                     </ul>
-                    <span class="">
-                        <img src="..." alt="Carrito de compras">
+                    <span class="text-light">
+                        <i class="fa-solid fa-cart-shopping"></i> Carrito de compras
                     </span>
                 </div>
             </div>
@@ -47,9 +48,9 @@
     <main>
 
         <section class="hero">
-            <h1 class="hero__title">¡Bienvenidos a Tecno Chile !</h1>
+            <h1 class="hero__title fw-bold fst-italic">¡Bienvenidos a Tecno Chile!</h1>
             <h2 id="bienvenida"></h2>
-            <div id="herocarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- <div id="herocarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="4000">
                         <img src="assets/img/slogan.jpg" class="d-block w-100" alt="carousel 1">
@@ -71,29 +72,27 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Siguiente</span>
                 </button>
-            </div>
+            </div> -->
 
         </section>
         <section class="categories">
-            <h1>Descubre nuestras categorías</h1>
+            <h2 class="categories__title">Descubre nuestras categorías</h2>
             <div id="carouselMultiImg" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
 
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-3">
-                                <img src="assets/images/categories/computadores.webp" class="d-block w-100"
-                                    alt="computadores">
+                                <img src="assets/images/categories/computadores.webp" class="d-block w-100 rounded-3" alt="computadores">
                             </div>
                             <div class="col-3">
-                                <img src="assets/images/categories/impresoras.webp" class="d-block w-100"
-                                    alt="impresoras">
+                                <img src="assets/images/categories/impresoras.webp" class="d-block w-100 rounded-3" alt="impresoras">
                             </div>
                             <div class="col-3">
-                                <img src="assets/images/categories/oficinas.webp" class="d-block w-100" alt="oficinas">
+                                <img src="assets/images/categories/oficinas.webp" class="d-block w-100 rounded-3" alt="oficinas">
                             </div>
                             <div class="col-3">
-                                <img src="assets/images/categories/pdv.webp" class="d-block w-100" alt="pdv">
+                                <img src="assets/images/categories/pdv.webp" class="d-block w-100 rounded-3" alt="pdv">
                             </div>
                         </div>
                     </div>

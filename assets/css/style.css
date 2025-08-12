@@ -1,8 +1,8 @@
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
     ul,
     ol,
@@ -10,13 +10,18 @@
       list-style: none;
     }
 
+    .nav__logo {
+      width: 140px;
+      height: auto;
+    }
+
     .carousel-item img {
-      max-height: 500px;
+      max-width: 300px;
       object-fit: cover;
     }
 
     .card img {
-      max-height: 180px;
+      width: 100%;
       object-fit: cover;
     }
 
@@ -48,7 +53,34 @@
       line-height: 1.5;
       color: #3a2222d7;
       text-align: center;
-      background-color: rgba(236, 232, 222, 0.925);
+      background-color: #E2E7F3;
+    }
+
+    /* ---------- Hero ---------- */
+
+    .hero {
+    background: linear-gradient(90deg, #361e8b 5%, #0081FA 50%, #361e8b 100%);
+    color: #fff;
+    padding: 48px 0 32px 0;
+    text-align: center;
+    }
+
+    #bienvenida {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ---------- Categorías ---------- */
+
+    .categories {
+      padding: 2rem 0;
+    }
+
+    .categories__title {
+      font-style: italic;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
 
     /* ---------- Footer ---------- */
