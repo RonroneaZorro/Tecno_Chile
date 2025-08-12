@@ -94,14 +94,15 @@
       padding: 1rem;
       background-color: #212121;
       color: white;
+    }
 
-      &__title {
+    .footer__title {
         font-size: 1.2rem;
         text-align: center;
         margin-bottom: 0.5rem;
       }
 
-      &__content {
+    .footer__content {
         list-style: none;
         display: flex;
         gap: 10px;
@@ -179,7 +180,10 @@
 
     /* ---------- Formulario de contacto ---------- */
     .form {
-      width: 80vw;
+      background: linear-gradient(90deg, #361e8b 5%, #0081FA 50%, #361e8b 100%);
+      color: #fff;
+      padding: 48px 20px 32px 20px;
+      text-align: center;
       margin: auto;
       margin-top: 20px;
       margin-bottom: 30px;

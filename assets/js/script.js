@@ -4,11 +4,11 @@ const bienvenida = document.getElementById("bienvenida");
 if (bienvenida) {
     if (localStorage.getItem("user")) {
         const user = localStorage.getItem("user");
-        bienvenida.innerHTML = `${user} tenemos lo que andas buscando!`;
+        bienvenida.innerHTML = `${user}, tenemos lo que andas buscando.`;
     }
     else {
-        const user = prompt("Ingrese su nombre y apellido porfavor.");
-        bienvenida.innerHTML = `${user} tenemos lo que andas buscando!`;
+        const user = prompt("Ingrese su nombre.");
+        bienvenida.innerHTML = `${user}, tenemos lo que andas buscando.`;
         localStorage.setItem("user", user);
     }
     
