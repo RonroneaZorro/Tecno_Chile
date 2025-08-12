@@ -8,108 +8,69 @@
     <link rel="icon" type="image/x-icon" href="assets/img/detective.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/script.js" defer></script>
 
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <img class="nav__logo" src="#" alt="Logotipo Tecno Chile">
+                <img class="nav__logo" src="assets/images/logo/TecnoChile_blanco.svg" alt="Logotipo Tecno Chile">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="productos.html">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Quienes somos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="productos.html">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Quienes somos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contacto</a>
+                            <button class="btn btn-outline-light" id="btnCarrito">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span id="contadorCarrito">0</span>
+                            </button>
                         </li>
                     </ul>
-                    <span class="">
-                        <img src="..." alt="Carrito de compras">
-                    </span>
                 </div>
             </div>
         </nav>
     </header>
+
     <main>
-        <section class="products">
-        <h1 class="products__title">Descubre nuestros productos seleccionados</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card h-100">
-                    <h5 class="card-title">Nombre Producto</h5>
-                    <img src="#" class="card-img-top" alt="Producto 1">
-                    <div class="card-body">
-                        <p class="card-text">Detalles del producto.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item--price">$23.990</li>
-                        </ul>
-                        <a href="productos.html" class="btn btn-dark">Agregar a carrito</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <h5 class="card-title">Nombre Producto</h5>
-                    <img src="#" class="card-img-top" alt="Producto 2">
-                    <div class="card-body">
-                        <p class="card-text">Detalles del producto.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item--price">$17.990</li>
-                        </ul>
-                        <a href="productos.html" class="btn btn-dark">Agregar a carrito</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card h-100">
-                    <h5 class="card-title">Nombre Producto</h5>
-                    <img src="#" class="card-img-top" alt="Producto 3">
-                    <div class="card-body">
-                        <p class="card-text">Detalles del producto.
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item--price">$35.990</li>
-                        </ul>
-                        <a href="productos.html" class="btn btn-dark">Agregar a carrito</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- Sección Productos -->
+        <section id="productos" class="container my-5">
+            <h2 class="text-center">Nuestros Productos</h2>
+            <input id="filtro" type="text" class="form-control mb-4" placeholder="Buscar producto...">
+            <div class="row" id="lista-productos"></div>
+        </section>
+
+        <!-- Carrito -->
+        <section id="carrito" class="container my-5">
+            <h2 class="text-center">Carrito de Compras</h2>
+            <ul id="items" class="list-group mb-3"></ul>
+            <h4>Total: $<span id="total">0</span></h4>
+            <button id="vaciar-carrito" class="btn btn-danger mt-3">Vaciar Carrito</button>
         </section>
     </main>
-    <footer>
-        <section class="footer">
-            <p>© 2025 Tienda Digital. Todos los derechos reservados. ||</p>
-            <p class="footer__title"> Desarrolladores:</p>
-            <div class="footer__content">
-                <ul class="footer__text">
-                    <li><a href="#">Camila Collado</a></li>
-                    <li><a href="#">Daniel Paredes</a></li>
-                    <li><a href="#">Jesús Pérez</a></li>
-                </ul>
-            </div>
-        </section>
+
+    <footer class="footer">
+        <p>© 2025 Tienda Digital. Todos los derechos reservados.</p>
+
+        <p class="footer__title">Desarrolladores:</p>
+        <ul class="footer__content">
+            <li><a href="#">Camila Collado</a></li>
+            <li><a href="#">Daniel Paredes</a></li>
+            <li><a href="#">Jesús Pérez</a></li>
+        </ul>
+
+        <div class="footer__social">
+            <a href="#"><img src="assets/images/footer/facebook.svg" alt="Facebook"></a>
+            <a href="#"><img src="assets/images/footer/instagram.svg" alt="Instagram"></a>
+            <a href="#"><img src="assets/images/footer/twitch.svg" alt="Twitch"></a>
+            <a href="#"><img src="assets/images/footer/twitter.svg" alt="Twitter"></a>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>

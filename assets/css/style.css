@@ -15,15 +15,21 @@
       height: auto;
     }
 
-    .carousel-item img {
-      max-width: 300px;
-      object-fit: cover;
+    .carousel-item {
+      text-align: center;
     }
+
+    .carousel__item-name {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /*
 
     .card img {
       width: 100%;
       object-fit: cover;
-    }
+    } */
 
     /* ---------- Botón de whatsapp ---------- */
 
@@ -71,18 +77,6 @@
       margin-bottom: 2rem;
     }
 
-    /* ---------- Categorías ---------- */
-
-    .categories {
-      padding: 2rem 0;
-    }
-
-    .categories__title {
-      font-style: italic;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
     /* ---------- Footer ---------- */
 
     .footer {
@@ -108,24 +102,24 @@
         gap: 10px;
         padding: 0;
         margin: 0;
+    }
 
-        a {
-          text-decoration: none;
-          color: white;
+    a {
+        text-decoration: none;
+        color: white;
         }
-      }
 
-      &__social {
+    .footer__social {
         display: flex;
         gap: 10px;
         margin-top: 0.5rem;
+    }
 
-        img {
+    .footer__social img {
+          filter: invert(1);
           width: 24px;
           height: 24px;
         }
-      }
-    }
 
     /* ---------- Ofertas ---------- */
 
@@ -182,11 +176,9 @@
     .form {
       background: linear-gradient(90deg, #361e8b 5%, #0081FA 50%, #361e8b 100%);
       color: #fff;
-      padding: 48px 20px 32px 20px;
+      padding: 48px 0px 32px 0px;
       text-align: center;
-      margin: auto;
       margin-top: 20px;
-      margin-bottom: 30px;
     }
 
     .form-label {
@@ -196,7 +188,6 @@
     }
 
     .form-control {
-      border: 2px solid #515253;
       padding: 8px;
       margin-bottom: 15px;
       width: 100%;
@@ -204,7 +195,7 @@
     }
 
     .form-control:focus {
-      border: 1px solid rgb(182, 31, 31);
+      border: 1px solid rgb(174, 0, 255);
       box-shadow: 0 0 0 0.5rem rgba(77, 2, 2, 0.144);
       outline: none;
     }

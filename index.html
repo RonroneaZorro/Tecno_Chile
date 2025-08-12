@@ -25,27 +25,34 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Quienes somos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="productos.html">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Quienes somos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contacto</a>
+                            <button class="btn btn-outline-light" id="btnCarrito">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span id="contadorCarrito">0</span>
+                            </button>
                         </li>
                     </ul>
-                    <span class="text-light">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </span>
                 </div>
             </div>
         </nav>
     </header>
     <main>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrito" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Carrito de Compras</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul id="listCarrito"></ul>
+                <h5>Total: <span id="totalCarrito">$0.00</span></h5>
+                <button id="vaciarCarrito">Vaciar Carrito</button>
+            </div>
+        </div>
 
         <section class="hero">
             <h1 class="hero__title fw-bold fst-italic">¡Bienvenidos a Tecno Chile!</h1>
@@ -75,23 +82,26 @@
             </div> -->
 
         </section>
-        <section class="categories">
-            <!-- <h2 class="categories__title">Descubre nuestras categorías</h2> -->
+        <section class="container">
             <div id="carouselMultiImg" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
 
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-3">
+                                <p class="carousel__item-name">Computadores</p>
                                 <img src="assets/images/categories/computadores.png" class="d-block w-100 rounded-3" alt="computadores">
                             </div>
                             <div class="col-3">
+                                <p class="carousel__item-name">Audífonos</p>
                                 <img src="assets/images/categories/audifonos.png" class="d-block w-100 rounded-3" alt="audifonos">
                             </div>
                             <div class="col-3">
+                                <p class="carousel__item-name">Impresoras</p>
                                 <img src="assets/images/categories/impresoras.png" class="d-block w-100 rounded-3" alt="impresoras">
                             </div>
                             <div class="col-3">
+                                <p class="carousel__item-name">Smartphones</p>
                                 <img src="assets/images/categories/smartphones.png" class="d-block w-100 rounded-3" alt="smartphones">
                             </div>
                         </div>
@@ -99,15 +109,19 @@
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col-3">
+                                <p class="carousel__item-name">Accesorios</p>
                                 <img src="assets/images/categories/accesorios.png" class="d-block w-100 rounded-3" alt="accesorios">
                             </div>
                             <div class="col-3">
+                                <p class="carousel__item-name">Monitores</p>
                                 <img src="assets/images/categories/monitores.png" class="d-block w-100 rounded-3" alt="monitores">
                             </div>
                             <div class="col-3">
+                                <p class="carousel__item-name">Servidores</p>
                                 <img src="assets/images/categories/servidores.png" class="d-block w-100 rounded-3" alt="servidores">
                             </div>
                             <div class="col-3">
+                                <p class="carousel__item-name">Teclado y Mouse</p>
                                 <img src="assets/images/categories/teclado.png" class="d-block w-100 rounded-3" alt="teclado y mouse">
                             </div>
                         </div>
@@ -188,25 +202,27 @@
 
         <h2 class="categories__title">Contáctanos</h2>
         <section class="form">
-            <div class="mb-3">
-                <label for="FormControlInput1" class="form-label">Nombre completo</label>
-                <input class="form-control" id="exampleFormControlInput1" placeholder="¿Cómo te llamas?">
-            </div>
-            <div class="mb-3">
-                <label for="FormControlInput2" class="form-label">Correo electrónico</label>
-                <input class="form-control" id="exampleFormControlTextarea1" placeholder="correo@ejemplo.com">
-            </div>
-            <div class="mb-3">
-                <label for="FormControlInput3" class="form-label">Asunto</label>
-                <input class="form-control" id="exampleFormControlTextarea1"
+            <div class="container">
+                <div class="col-8 mb-3">
+                    <label for="FormControlInput1" class="form-label">Nombre completo</label>
+                    <input class="form-control" id="exampleFormControlInput1" placeholder="¿Cómo te llamas?">
+                </div>
+                <div class="mb-3">
+                    <label for="FormControlInput2" class="form-label">Correo electrónico</label>
+                    <input class="form-control" id="exampleFormControlTextarea1" placeholder="correo@ejemplo.com">
+                </div>
+                <div class="mb-3">
+                    <label for="FormControlInput3" class="form-label">Asunto</label>
+                    <input class="form-control" id="exampleFormControlTextarea1"
                     placeholder="Contacto / Trabaja con nosotros/">
-            </div>
-            <div class="mb-3">
-                <label for="FormControlTextarea1" class="form-label">Mensaje</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                </div>
+                <div class="mb-3">
+                    <label for="FormControlTextarea1" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                     placeholder="Hola! Me gustaría más información sobre..."></textarea>
-            </div>
-            <div id="liveAlertPlaceholder"></div>
+                </div>
+                <div id="liveAlertPlaceholder"></div>
+            </div>   
             <button type="button" class="btn btn-dark" id="liveAlertBtn">Enviar</button>
         </section>
     </main>
