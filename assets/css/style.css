@@ -56,8 +56,7 @@
 
     body {
       font-size: 16px;
-      line-height: 1.5;
-      color: #3a2222d7;
+      color: #1b1e35d7;
       text-align: center;
       background-color: #E2E7F3;
     }
@@ -121,42 +120,8 @@
           height: 24px;
         }
 
-    /* ---------- Ofertas ---------- */
 
-    .offers {
-      width: 80vw;
-      margin: auto;
-      margin-top: 20px;
-      margin-bottom: 30px;
-
-      &__title {}
-
-    }
-
-    /* ---------- Cards ---------- */
-
-    .card {
-      background-color: whitesmoke;
-      border: 2px solid #515253;
-      padding: 5px;
-      margin: 5px;
-      border-radius: 10px;
-
-      &-title {
-        color: #2d2d2e;
-        font-weight: bold;
-        margin-top: 10px;
-      }
-
-      &-img-top {
-        width: 70%;
-        margin: auto;
-        padding: 0;
-
-      }
-    }
-
-    .list-group-item--old {
+    /* .list-group-item--old {
 
       color: red;
       text-decoration: line-through;
@@ -170,20 +135,17 @@
       color: rgb(43, 41, 41);
       margin: 0;
 
-    }
+    } */
 
     /* ---------- Formulario de contacto ---------- */
     .form {
       background: linear-gradient(90deg, #361e8b 5%, #0081FA 50%, #361e8b 100%);
       color: #fff;
-      padding: 48px 0px 32px 0px;
-      text-align: center;
-      margin-top: 20px;
+      padding: 48px;
     }
 
     .form-label {
       font-weight: bold;
-      display: block;
       margin-bottom: 5px;
     }
 
@@ -191,7 +153,6 @@
       padding: 8px;
       margin-bottom: 15px;
       width: 100%;
-      box-sizing: border-box;
     }
 
     .form-control:focus {
@@ -202,9 +163,9 @@
 
     /* ---------- Productos ---------- */
 
-    .products {
+    /* .products {
       width: 80vw;
       margin: auto;
       margin-top: 20px;
       margin-bottom: 30px;
-    }
+    } */

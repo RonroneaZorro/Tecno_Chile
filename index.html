@@ -27,14 +27,13 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Quienes somos</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <button class="btn btn-outline-light" id="btnCarrito">
                                 <i class="fa-solid fa-cart-shopping"></i>
                                 <span id="contadorCarrito">0</span>
                             </button>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -89,19 +88,19 @@
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-3">
-                                <p class="carousel__item-name">Computadores</p>
+                                <p class="carousel__item-name mt-3">Computadores</p>
                                 <img src="assets/images/categories/computadores.png" class="d-block w-100 rounded-3" alt="computadores">
                             </div>
                             <div class="col-3">
-                                <p class="carousel__item-name">Audífonos</p>
+                                <p class="carousel__item-name mt-3">Audífonos</p>
                                 <img src="assets/images/categories/audifonos.png" class="d-block w-100 rounded-3" alt="audifonos">
                             </div>
                             <div class="col-3">
-                                <p class="carousel__item-name">Impresoras</p>
+                                <p class="carousel__item-name mt-3">Impresoras</p>
                                 <img src="assets/images/categories/impresoras.png" class="d-block w-100 rounded-3" alt="impresoras">
                             </div>
                             <div class="col-3">
-                                <p class="carousel__item-name">Smartphones</p>
+                                <p class="carousel__item-name mt-3">Smartphones</p>
                                 <img src="assets/images/categories/smartphones.png" class="d-block w-100 rounded-3" alt="smartphones">
                             </div>
                         </div>
@@ -109,19 +108,19 @@
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col-3">
-                                <p class="carousel__item-name">Accesorios</p>
+                                <p class="carousel__item-name mt-3">Accesorios</p>
                                 <img src="assets/images/categories/accesorios.png" class="d-block w-100 rounded-3" alt="accesorios">
                             </div>
                             <div class="col-3">
-                                <p class="carousel__item-name">Monitores</p>
+                                <p class="carousel__item-name mt-3">Monitores</p>
                                 <img src="assets/images/categories/monitores.png" class="d-block w-100 rounded-3" alt="monitores">
                             </div>
                             <div class="col-3">
-                                <p class="carousel__item-name">Servidores</p>
+                                <p class="carousel__item-name mt-3">Servidores</p>
                                 <img src="assets/images/categories/servidores.png" class="d-block w-100 rounded-3" alt="servidores">
                             </div>
                             <div class="col-3">
-                                <p class="carousel__item-name">Teclado y Mouse</p>
+                                <p class="carousel__item-name mt-3">Teclado y Mouse</p>
                                 <img src="assets/images/categories/teclado.png" class="d-block w-100 rounded-3" alt="teclado y mouse">
                             </div>
                         </div>
@@ -142,15 +141,14 @@
             </div>
 
         </section>
-        <section class="offers">
-            <h2 class="categories__title">Ofertas solo por Agosto<img src="assets/img/oferta 128px.png" alt="Icono oferta">
-            </h2>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card h-100">
-                        <h5 class="card-title">Nombre Producto</h5>
-                        <img src="#" class="card-img-top" alt="Producto 1">
-                        <div class="card-body">
+        <section class="container mt-5">
+            <div class="row">
+                <h3 class="categories__title">Explora nuestras categorías</h3>
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-lg bg-primary text-white">
+                        <h5 class="card-title mt-3">Computadores</h5>
+                        <img src="assets/images/categories/computadores_small.png" alt="Producto 1">
+                        <!-- <div class="card-body">
                             <p class="card-text">Detalles del producto.
                             </p>
                         </div>
@@ -158,16 +156,16 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item--old">$33.990</li>
                                 <li class="list-group-item--price">$23.990</li>
-                            </ul>
-                            <a href="productos.html" class="btn btn-dark">Ver más</a>
-                        </div>
+                            </ul> -->
+                        <a href="productos.html" class="btn btn-dark">Ver más</a>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card h-100">
-                        <h5 class="card-title">Nombre Producto</h5>
-                        <img src="#" class="card-img-top" alt="Producto 2">
-                        <div class="card-body">
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-lg bg-primary text-white">
+                        <h5 class="card-title mt-3">Accesorios</h5>
+                        <img src="assets/images/categories/accesorios_small.png" alt="Producto 2">
+                        <!-- <div class="card-body">
                             <p class="card-text">Detalles del producto.
                             </p>
                         </div>
@@ -175,37 +173,38 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item--old">$27.990</li>
                                 <li class="list-group-item--price">$17.990</li>
-                            </ul>
-                            <a href="productos.html" class="btn btn-dark">Ver más</a>
-                        </div>
+                            </ul> -->
+                        <a href="productos.html" class="btn btn-dark">Ver más</a>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card h-100">
-                        <h5 class="card-title">Nombre Producto</h5>
-                        <img src="#" class="card-img-top" alt="Producto 3">
-                        <div class="card-body">
+
+                <div class="col-md-4 mb-4">
+                    <div class="card border-0 shadow-lg bg-primary text-white">
+                        <h5 class="card-title mt-3">Servidores</h5>
+                        <img src="assets/images/categories/servidores_small.png" alt="Producto 3">
+                        <!-- <div class="card-body">
                             <p class="card-text">Detalles del producto.
                             </p>
-                        </div>
-                        <div class="card-footer">
+                        </div> -->
+                        <!-- <div class="card-footer">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item--old">$45.990</li>
                                 <li class="list-group-item--price">$35.990</li>
-                            </ul>
-                            <a href="productos.html" class="btn btn-dark">Ver más</a>
-                        </div>
+                            </ul> -->
+                        <a href="productos.html" class="btn btn-dark">Ver más</a>
                     </div>
                 </div>
             </div>
+
         </section>
 
-        <h2 class="categories__title">Contáctanos</h2>
-        <section class="form">
-            <div class="container">
-                <div class="col-8 mb-3">
+        
+        <section class="form mt-5">
+            <h3 class="categories__title mt-2">Contáctanos</h3>
+            <div class="container mt-5">
+                <div class="mb-3">
                     <label for="FormControlInput1" class="form-label">Nombre completo</label>
-                    <input class="form-control" id="exampleFormControlInput1" placeholder="¿Cómo te llamas?">
+                    <input class="form-control" id="exampleFormControlInput1" placeholder="Nombre y Apellido">
                 </div>
                 <div class="mb-3">
                     <label for="FormControlInput2" class="form-label">Correo electrónico</label>
@@ -214,12 +213,12 @@
                 <div class="mb-3">
                     <label for="FormControlInput3" class="form-label">Asunto</label>
                     <input class="form-control" id="exampleFormControlTextarea1"
-                    placeholder="Contacto / Trabaja con nosotros/">
+                    placeholder="¿En qué te podemos ayudar?">
                 </div>
                 <div class="mb-3">
                     <label for="FormControlTextarea1" class="form-label">Mensaje</label>
                     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                    placeholder="Hola! Me gustaría más información sobre..."></textarea>
+                    placeholder="Describe tu asunto en detalle"></textarea>
                 </div>
                 <div id="liveAlertPlaceholder"></div>
             </div>   

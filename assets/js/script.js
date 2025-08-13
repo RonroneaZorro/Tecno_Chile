@@ -38,9 +38,9 @@ if (bienvenida) {
 // });
 
 const productos = [
-    { id: 1, nombre: "Mouse Gamer", precio: 15000 },
-    { id: 2, nombre: "Teclado Mecánico", precio: 30000 },
-    { id: 3, nombre: "Monitor 24''", precio: 90000 }
+    { id: 1, nombre: "Mouse Gamer", precio: 15000, imagen: "assets/images/carrito/mouse.png" },
+    { id: 2, nombre: "Teclado Mecánico", precio: 30000, imagen: "assets/images/carrito/teclado.png" },
+    { id: 3, nombre: "Monitor 24''", precio: 90000, imagen: "assets/images/carrito/monitor.png" }
 ];
 
 let carrito = [];
@@ -56,11 +56,12 @@ function mostrarProductos(filtrados = productos) {
     filtrados.forEach(p => {
         listaProductos.innerHTML += `
         <div class="col-md-4">
-            <div class="card">
+            <div class="card border-0 shadow-lg bg-primary text-white">
                 <div class="card-body">
                     <h5>${p.nombre}</h5>
-                    <p>Precio: $${p.precio}</p>
-                    <button class="btn btn-primary" onclick="agregarAlCarrito(${p.id})">Agregar</button>
+                    <img src="${p.imagen}" class="card-img-top mx-auto d-block" alt="${p.nombre}" style="width:300px; height:auto;">
+                    <p class="mt-2">Precio: $${p.precio}</p>
+                    <button class="btn btn-light text-dark" onclick="agregarAlCarrito(${p.id})">Agregar</button>
                 </div>
             </div>
         </div>`;
@@ -184,8 +185,8 @@ mostrarProductos();
 // }
 
 
-// const btnCarrito = document.getElementById("btnCarrito");
-// const offcanvascarrito = new bootstrap.Offcanvas(document.getElementById("offcanvasCarrito"));
-// btnCarrito.addEventListener("click", () => {
-//     offcanvascarrito.toggle();
-// });
+    // const btnCarrito = document.getElementById("btnCarrito");
+    // const offcanvascarrito = new bootstrap.Offcanvas(document.getElementById("offcanvasCarrito"));
+    // btnCarrito.addEventListener("click", () => {
+    //     offcanvascarrito.toggle();
+    // });
