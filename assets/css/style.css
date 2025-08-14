@@ -33,13 +33,6 @@
       }
     }
 
-    /*
-
-    .card img {
-      width: 100%;
-      object-fit: cover;
-    } */
-
     /* ---------- Botón de whatsapp ---------- */
 
     .whatsapp-button {
@@ -129,23 +122,6 @@
           height: 24px;
         }
 
-
-    /* .list-group-item--old {
-
-      color: red;
-      text-decoration: line-through;
-      font-size: 19px;
-
-    }
-
-    .list-group-item--price {
-
-      font-size: 18px;
-      color: rgb(43, 41, 41);
-      margin: 0;
-
-    } */
-
     /* ---------- Formulario de contacto ---------- */
     .form {
       background: linear-gradient(90deg, #361e8b 5%, #0081FA 50%, #361e8b 100%);
@@ -169,12 +145,3 @@
       box-shadow: 0 0 0 0.5rem rgba(77, 2, 2, 0.144);
       outline: none;
     }
-
-    /* ---------- Productos ---------- */
-
-    /* .products {
-      width: 80vw;
-      margin: auto;
-      margin-top: 20px;
-      margin-bottom: 30px;
-    } */
