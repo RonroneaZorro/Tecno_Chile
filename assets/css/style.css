@@ -1,147 +1,189 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+ol,
+a {
+  list-style: none;
+}
+
+.nav__logo {
+  width: 140px;
+  height: auto;
+}
+
+.carousel-item {
+  text-align: center;
+}
+
+.carousel__item-name {
+  text-align: center;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .carousel-control-prev {
+    display: none;
   }
 
-    ul,
-    ol,
-    a {
-      list-style: none;
-    }
+  .carousel-control-next {
+    display: none;
+  }
+}
 
-    .nav__logo {
-      width: 140px;
-      height: auto;
-    }
+/* ---------- Botón de whatsapp ---------- */
 
-    .carousel-item {
-      text-align: center;
-    }
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: white;
+  font-size: 28px;
+  padding: 8px 14px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
 
-    .carousel__item-name {
-      text-align: center;
-      font-weight: bold;
-    }
+.whatsapp-button:hover {
+  background-color: #02732d;
+}
 
-    @media (max-width: 768px) {
-      .carousel-control-prev {
-        display: none;
-      }
-      .carousel-control-next {
-        display: none;
-      }
-    }
+/* ---------- Body ---------- */
 
-    /* ---------- Botón de whatsapp ---------- */
+body {
+  font-size: 16px;
+  color: #1b1e35d7;
+  text-align: center;
+  background-color: #E2E7F3;
+}
 
-    .whatsapp-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      color: white;
-      font-size: 28px;
-      padding: 8px 14px;
-      border-radius: 50%;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
+/* ---------- Hero ---------- */
 
-    .whatsapp-button:hover {
-      background-color: #02732d;
-    }
+.hero {
+  background: linear-gradient(90deg, #361e8b 5%, #0081FA 50%, #361e8b 100%);
+  color: #fff;
+  padding: 48px 0 32px 0;
+  text-align: center;
+}
 
-    /* ---------- Body ---------- */
+#bienvenida {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
 
-    body {
-      font-size: 16px;
-      color: #1b1e35d7;
-      text-align: center;
-      background-color: #E2E7F3;
-    }
+/* ---------- Footer ---------- */
 
-    /* ---------- Hero ---------- */
+.footer {
+  font-size: .8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #212121;
+  color: white;
+}
 
-    .hero {
-    background: linear-gradient(90deg, #361e8b 5%, #0081FA 50%, #361e8b 100%);
-    color: #fff;
-    padding: 48px 0 32px 0;
-    text-align: center;
-    }
+.footer__title {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
 
-    #bienvenida {
-      font-size: 1.5rem;
-      margin-top: 1rem;
-      margin-bottom: 2rem;
-    }
+.footer__content {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
 
-    /* ---------- Footer ---------- */
+a {
+  text-decoration: none;
+  color: white;
+}
 
-    .footer {
-      font-size: .8rem;
-      display: flex;
-      flex-direction: column; 
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-      background-color: #212121;
-      color: white;
-    }
+.footer__social {
+  display: flex;
+  gap: 10px;
+  margin-top: 0.5rem;
+}
 
-    .footer__title {
-        font-size: 1.2rem;
-        text-align: center;
-        margin-bottom: 0.5rem;
-      }
+.footer__social img {
+  filter: invert(1);
+  width: 24px;
+  height: 24px;
+}
 
-    .footer__content {
-        list-style: none;
-        display: flex;
-        gap: 10px;
-        padding: 0;
-        margin: 0;
-    }
+/* ---------- Formulario de contacto ---------- */
+.form {
+  background: linear-gradient(90deg, #361e8b 5%, #0081FA 50%, #361e8b 100%);
+  color: #fff;
+  padding: 48px;
+}
 
-    a {
-        text-decoration: none;
-        color: white;
-        }
+.form-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 
-    .footer__social {
-        display: flex;
-        gap: 10px;
-        margin-top: 0.5rem;
-    }
+.form-control {
+  padding: 8px;
+  margin-bottom: 15px;
+  width: 100%;
+}
 
-    .footer__social img {
-          filter: invert(1);
-          width: 24px;
-          height: 24px;
-        }
+.form-control:focus {
+  border: 1px solid rgb(174, 0, 255);
+  box-shadow: 0 0 0 0.5rem rgba(77, 2, 2, 0.144);
+  outline: none;
+}
 
-    /* ---------- Formulario de contacto ---------- */
-    .form {
-      background: linear-gradient(90deg, #361e8b 5%, #0081FA 50%, #361e8b 100%);
-      color: #fff;
-      padding: 48px;
-    }
+/* ---------- Productos ---------- */
 
-    .form-label {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
+.catalog-title {
+    font-weight: 700;
+    font-size: 2rem;
+    background: linear-gradient(90deg, #0d6efd, #6610f2, #0dcaf0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
 
-    .form-control {
-      padding: 8px;
-      margin-bottom: 15px;
-      width: 100%;
-    }
+.catalog-title::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 3px;
+    background: #0d6efd;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+    animation: slideUnderline 1.5s ease-in-out infinite alternate;
+}
 
-    .form-control:focus {
-      border: 1px solid rgb(174, 0, 255);
-      box-shadow: 0 0 0 0.5rem rgba(77, 2, 2, 0.144);
-      outline: none;
-    }
+@keyframes slideUnderline {
+    0% { width: 0; }
+    100% { width: 50%; }
+}
+
+
+/* Barra en tono gris oscuro estilo Bootstrap */
+.range-dark::-webkit-slider-runnable-track {
+    background: #6c757d; /* gris bootstrap */
+    height: 6px;
+    border-radius: 5px;
+}
+
+.range-dark::-moz-range-track {
+    background: #6c757d;
+    height: 6px;
+    border-radius: 5px;
+}

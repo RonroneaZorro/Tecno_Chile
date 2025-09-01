@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
 </head>
 
 <body>
@@ -28,11 +27,12 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="productos.html">Productos</a></li>
                         <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
                         <li class="nav-item ms-3">
-                            <a href="productos.html" class="btn btn-light position-relative">
+                            <button class="btn btn-light position-relative" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
                                 <i class="fa-solid fa-cart-shopping"></i>
-                                <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0
-                                </span>
-                            </a>
+                                <span id="cartItemsCountBadge"
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -40,21 +40,65 @@
         </nav>
     </header>
 
-    <main>
-            <!-- Sección Productos -->
-        <section id="productos" class="container my-5">
-            <h2 class="text-center">Nuestros Productos</h2>
-            <input id="filtro" type="text" class="form-control mb-4" placeholder="Buscar producto...">
-            <div class="row" id="lista-productos"></div>
+    <main class="flex-grow-1 pt-5 mt-3">
+        <section class="catalog-page-section py-5">
+            <div class="container-fluid">
+                <h2 class="text-center mb-4">¡Descubre y encuentra el producto perfecto para ti!</h2>
+                <div class="row">
+                    <aside class="col-md-3">
+                        <h4 class="mb-3">Filtrar por:</h4>
+                        <div class="filter-buttons d-flex justify-content-start flex-column gap-2 mb-4">
+                            <button class="filter-button btn btn-outline-dark active mb-2" data-category="todos">Todos</button>
+                            <button class="filter-button btn btn-outline-dark mb-2" data-category="mouses">Mouse</button>
+                            <button class="filter-button btn btn-outline-dark mb-2" data-category="teclados">Teclados</button>
+                            <button class="filter-button btn btn-outline-dark mb-2" data-category="monitores">Monitores</button>
+                        </div>
+                        <div id="filter-section">
+                            <div class="mb-3">
+                                <label for="freeTextSearch" class="form-label">Buscar producto</label>
+                                <input type="text" class="form-control" id="freeTextSearch"
+                                    placeholder="Busca por nombre, descripción o marca">
+                            </div>
+                            <div class="mb-3">
+                                <label for="priceRange" class="form-label">Rango de precio:
+                                    <span id="priceValue">$1.000.000</span>
+                                </label>
+                                <input type="range" class="form-range range-dark" id="priceRange" min="0" max="10000000"
+                                    step="50000" value="10000000">
+                            </div>
+                            <div class="d-grid">
+                                <button id="applyFiltersButton" class="btn btn-dark mb-2">Buscar</button>
+                            </div>
+                        </div>
+                    </aside>
+                    <div class="col-md-9">
+                        <div class="products__grid row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="productsGrid">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Carrito -->
-        <section id="carrito" class="container my-5">
-            <h2 class="text-center">Carrito de Compras</h2>
-            <ul id="items" class="list-group mb-3"></ul>
-            <h4>Total: $<span id="total">0</span></h4>
-            <button id="vaciar-carrito" class="btn btn-danger mt-3">Vaciar Carrito</button>
-        </section>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+            <div class="offcanvas-header bg-dark text-white">
+                <h5 class="offcanvas-title text-white" id="cartOffcanvasLabel">Tu Carro</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                    aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <p id="emptyCartMessage" class="text-center text-muted">Tu carrito está vacío :C . ¡Sigue buscando en
+                    nuestros productos!</p>
+                <div id="cartItemsList">
+                </div>
+                <div id="cartSummaryDetails" class="mt-4">
+                </div>
+            </div>
+            <div class="offcanvas-footer border-top p-3 d-flex justify-content-between" id="cartOffcanvasFooterButtons"
+                style="display:none;">
+                <button class="btn btn-success w-50 me-2" id="confirmPurchaseButton">Comprar</button>
+                <button class="btn btn-danger w-50" id="clearCartButton">Vaciar Carrito</button>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
@@ -75,12 +119,102 @@
         </div>
     </footer>
 
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="checkoutModalLabel">Confirmar Compra y Datos de Despacho</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="checkoutForm">
+                        <p class="mb-3 text-muted">Ingresa tus datos para continuar el despacho con tu compra :)</p>
+                        <div class="mb-3">
+                            <label for="clientEmail" class="form-label">Correo Electrónico <span
+                                    class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="clientEmail" placeholder="tucorreo@email.com"
+                                required>
+                            <div class="invalid-feedback">
+                                Por favor, ingresa un correo electrónico válido.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="clientName" class="form-label">Nombre de quien recibe <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="clientName" required>
+                            <div class="invalid-feedback">
+                                Por favor, ingresa el nombre de quien recibe.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="shippingAddress" class="form-label">Dirección <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="shippingAddress"
+                                placeholder="Calle, Número, Depto/Casa" required>
+                            <div class="invalid-feedback">
+                                Por favor, ingresa la dirección de despacho.
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="shippingComuna" class="form-label">Comuna <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="shippingComuna" required>
+                                <div class="invalid-feedback">
+                                    Por favor, ingresa la comuna.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="shippingRegion" class="form-label">Región <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="shippingRegion" required>
+                                <div class="invalid-feedback">
+                                    Por favor, ingresa la región.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg mt-3">Comprar</button>
+                        </div>
+                        <p class="mb-3 text-muted">Próximamente retiro en tienda !</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successSendModal" tabindex="-1" aria-labelledby="successSendModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="successSendModalLabel">¡Compra Confirmada!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p class="fs-4 text-success"><i class="bi bi-check-circle-fill"></i></p>
+                    <p class="fs-5">Tu boleta ha sido generada y enviada a <strong id="sentEmailDisplay"></strong>.</p>
+                    <p>¡Gracias por tu compra!</p>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/script.js"></script>
+    <script type="module" src="assets/js/productosModelo.js"></script>
+    <script type="module" src="assets/js/tiendaControlador.js"></script>
 
     <a href="https://wa.me/56912345678" class="whatsapp-button" target="_blank" aria-label="WhatsApp">
         <i class="bi bi-whatsapp"></i>
     </a>
-</body>     
+</body>
 
 </html>

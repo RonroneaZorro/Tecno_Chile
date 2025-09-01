@@ -1,0 +1,26 @@
+# =======================================
+# Archivos generados automáticamente
+# =======================================
+
+# Mapas de CSS (cuando usas SASS/SCSS)
+*.css.map
+
+# Carpeta de compilación (si usas una)
+dist/
+build/
+
+# Logs
+logs/
+*.log
+
+# =======================================
+# Archivos del sistema operativo
+# =======================================
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini

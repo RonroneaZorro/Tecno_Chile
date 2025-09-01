@@ -1,0 +1,32 @@
+[
+    {
+        "id": "prod-mouseGamer-001",
+        "code": "MG001",
+        "name": "Mouse Gamer V1",
+        "description": ".",
+        "price": 199000,
+        "stock": 4,
+        "imageSrc": "assets/images/carrito/mouse.png",
+        "category": "mouses"
+    },
+    {
+        "id": "prod-teclado-001",
+        "code": "T001",
+        "name": "Teclado V1",
+        "description": ".",
+        "price": 150000,
+        "stock": 2,
+        "imageSrc": "assets/images/carrito/teclado.png",
+        "category": "teclados"
+    },
+    {
+        "id": "prod-monitor-001",
+        "code": "M001",
+        "name": "Monitor V1",
+        "description": ".",
+        "price": 2999000,
+        "stock": 1,
+        "imageSrc": "assets/images/carrito/monitor.png",
+        "category": "monitores"
+    }
+]   
