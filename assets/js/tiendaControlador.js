@@ -21,6 +21,35 @@ const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal
 const successSendModal = new bootstrap.Modal(document.getElementById('successSendModal'));
 const cartOffcanvasFooterButtons = document.getElementById('cartOffcanvasFooterButtons');
 
+const IS_HOME = !!document.getElementById('productsGridContainer') && !document.getElementById('applyFiltersButton');
+
+function reconcileCartWithProducts() {
+    const keptItems = [];
+    store.cart.items.forEach(item => {
+        const prod = store.getProductById(item.product.id);
+        if (prod && item.quantity > 0) {
+            item.product = prod;
+            keptItems.push(item);
+        }
+    });
+    store.cart.items = keptItems;
+    store.cart.save();
+}
+
+// Renderizar productos destacados en Home considerando stock real
+function renderFeaturedOnHome() {
+    if (!IS_HOME) return;
+
+    const destacados = store.products.filter(p => {
+        const existingCartItem = store.cart.items.find(i => i.product.id === p.id);
+        const availableStock = Number(p.stock) - (existingCartItem ? Number(existingCartItem.quantity) : 0);
+        return availableStock === 1;
+    });
+
+    filteredProducts = destacados;
+    renderProducts(filteredProducts);
+}
+
 // Si el carrito esta vacio, muesta un mensaje de "carrito vacio"
 // Si hay productos, muestra Nombre, Cantidad, Precio, Total y botones para limpiar y confirmar compra
 function renderCart() {
@@ -41,23 +70,29 @@ function renderCart() {
         store.cart.items.forEach(item => {
             const itemTotal = item.total;
             const colProduct = store.getProductById(item.product.id);
-            // maxStock limita la cantidad de unidades que se pueden agregar al carrito para no exceda el stock disponible
             const maxStock = colProduct ? colProduct.stock + item.quantity : item.quantity;
 
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mb-2', 'py-2', 'border-bottom');
+
+            // Separa nombre y cantidad de precio y botón, evitando que el nombre largo empuje el precio
             itemDiv.innerHTML = `
-                <div>
-                    <span class="d-block text-truncate fw-bold">${item.product.name}</span>
-                    <small>Cantidad: ${item.quantity}</small>
-                </div>
-                <div class="d-flex align-items-center">
-                    <span class="fw-bold me-2">$${Math.round(itemTotal).toLocaleString('es-CL')}</span>
-                    <button class="btn btn-sm btn-outline-danger remove-from-cart-btn" data-product-id="${item.product.id}">
-                        <i class="bi bi-trash-fill"></i>
-                    </button>
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <div class="me-2 flex-grow-1 text-truncate">
+                        <span class="fw-bold">${item.product.name}</span><br>
+                        <input type="number" class="form-control form-control-sm cart-item-quantity mt-1"
+                               value="${item.quantity}" min="1" max="${maxStock}"
+                               data-product-id="${item.product.id}">
+                    </div>
+                    <div class="text-end d-flex flex-column align-items-end">
+                        <span class="fw-bold">$${Math.round(itemTotal).toLocaleString('es-CL')}</span>
+                        <button class="btn btn-sm btn-outline-danger mt-1 remove-from-cart-btn" data-product-id="${item.product.id}">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </div>
                 </div>
             `;
+
             cartItemsList.appendChild(itemDiv);
         });
 
@@ -71,6 +106,10 @@ function renderCart() {
         `;
     }
     updateCartBadge();
+
+    // Si estamos en la HOME, recalculamos los destacados inmediatamente despues de renderizar el carrito,
+    // así los cambios de stock se reflejan en tiempo real en la sección destacada.
+    renderFeaturedOnHome();
 }
 
 // Muestra el badge con la cantidad de productos en el carrito en el navbar
@@ -83,8 +122,7 @@ function updateCartBadge() {
 }
 
 // Muestra los productos dentro de la tienda.
-// En cada producto muestra su imagen, nombre, precio, stock y botón para agregar al carrito}
-// Si el stock es 0, envia una alerta
+
 function renderProducts(productsToRender) {
     if (!productsGrid) return;
     productsGrid.innerHTML = '';
@@ -95,10 +133,13 @@ function renderProducts(productsToRender) {
     }
 
     productsToRender.forEach(product => {
-        const cartItem = store.cart.items.find(i => i.product.id === product.id);
-        const displayedStock = cartItem ? product.stock - cartItem.quantity : product.stock;
-        const stockMessage = renderStockMessage(displayedStock);
-        const isOutOfStock = displayedStock <= 0;
+        // Considerar la cantidad que ya está en el carrito para mostrar stock real
+        const existingCartItem = store.cart.items.find(i => i.product.id === product.id);
+        const availableStock = Number(product.stock) - (existingCartItem ? Number(existingCartItem.quantity) : 0);
+
+        const stockMessage = renderStockMessage(availableStock);
+        const isOutOfStock = availableStock <= 0;
+
         const buttonHtml = isOutOfStock ?
             `<button class="btn btn-danger w-100 mt-auto" disabled>Agotado</button>` :
             `<button class="btn btn-primary w-100 mt-auto add-to-cart-btn" data-product-id="${product.id}">Agregar al Carrito</button>`;
@@ -127,21 +168,23 @@ function renderProducts(productsToRender) {
     });
 }
 
-// Mensaje según stock, cuando el stock es 0 avisamos que no hay stock
+
 function renderStockMessage(stock) {
     if (stock <= 0) {
-        return ''; // No mostrar nada
+        return `<span class="badge bg-secondary">Agotado</span>`;
     } else if (stock === 1) {
         return `<span class="badge bg-warning text-dark">Última unidad, ¡No te lo pierdas!</span>`;
     } else if (stock > 1 && stock <= 4) {
         return `<span class="badge bg-warning text-dark">Sólo ${stock} en stock</span>`;
     }
-    return ''; // No mostrar nada si hay más de 4
+    return '';
 }
 
 // Eventos del carrito
+// Vaciar carrito: solo limpiar carrito, no tocar stock
 clearCartButton.addEventListener('click', () => {
     store.cart.clear();
+    store.saveProducts();
     renderCart();
     applyFilters();
 });
@@ -150,7 +193,6 @@ confirmPurchaseButton.addEventListener('click', () => {
     checkoutModal.show();
 });
 
-// Eventos de los modales
 checkoutForm.addEventListener('submit', (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -165,6 +207,7 @@ checkoutForm.addEventListener('submit', (event) => {
 
 successSendModal.show;
 document.getElementById('successSendModal').addEventListener('hidden.bs.modal', () => {
+    // Despues de comprar: se asume consumo definitivo del stock (no se restaura).
     store.cart.clear();
     renderCart();
     applyFilters();
@@ -172,10 +215,14 @@ document.getElementById('successSendModal').addEventListener('hidden.bs.modal', 
     checkoutForm.classList.remove('was-validated');
 });
 
-
-// Función para aplicar los filtros
-// categoria, precio y texto
+// Función para aplicar filtros
 function applyFilters() {
+    // Si estamos en HOME, forzamos el render de destacados (stock === 1) y salimos.
+    if (IS_HOME) {
+        renderFeaturedOnHome();
+        return;
+    }
+
     const category = document.querySelector('.filter-button.active')?.dataset.category || 'todos';
     const priceRange = document.getElementById('priceRange')?.value;
     const searchText = document.getElementById('freeTextSearch')?.value.toLowerCase();
@@ -197,7 +244,6 @@ function applyFilters() {
         );
     }
 
-    // Se aplica el filtro de precio solo si se ha movido el rango
     if (priceRange) {
         const maxPrice = parseFloat(priceRange);
         tempProducts = tempProducts.filter(p => p.price <= maxPrice);
@@ -213,16 +259,12 @@ function setupFilters() {
     const priceValueDisplay = document.getElementById('priceValue');
 
     if (priceRangeInput && priceValueDisplay) {
-        // Muestra el valor inicial
         priceValueDisplay.textContent = `$${parseFloat(priceRangeInput.value).toLocaleString('es-CL')}`;
-
-        // Event listener para actualizar el valor del rango
         priceRangeInput.addEventListener('input', () => {
             priceValueDisplay.textContent = `$${parseFloat(priceRangeInput.value).toLocaleString('es-CL')}`;
         });
     }
 
-    // Eventos para los botones de categoría y búsqueda
     document.querySelectorAll('.filter-button').forEach(button => {
         button.addEventListener('click', e => {
             document.querySelector('.filter-button.active')?.classList.remove('active');
@@ -231,7 +273,6 @@ function setupFilters() {
         });
     });
 
-    // Se agrega botón forzando la funcionalidad para la búsqueda y el rango de precio
     document.getElementById('applyFiltersButton').addEventListener('click', applyFilters);
 }
 
@@ -242,53 +283,86 @@ document.addEventListener('click', (e) => {
         const productId = button.dataset.productId;
         const product = store.getProductById(productId);
         if (product) {
-            const added = store.cart.addItem(product, 1);
-            if (added) {
-                // Actualiza el stock en la tienda y en el almacenamiento local
-                product.stock = Math.max(0, product.stock - 1);
+            // Considerar la cantidad que ya está en el carrito
+            const existingCartItem = store.cart.items.find(i => i.product.id === productId);
+            const cartQty = existingCartItem ? Number(existingCartItem.quantity) : 0;
+            const availableStock = Number(product.stock) - cartQty;
+
+            if (availableStock > 0) {
+                store.cart.addItem(product, 1); // addItem maneja la cantidad internamente
                 store.saveProducts();
                 applyFilters();
                 renderCart();
-                // Muestra el offcanvas del carrito si se agregó un producto
                 cartOffcanvas.show();
+            } else {
+                console.warn('Intento de agregar sin stock suficiente');
             }
         }
     }
 
-    // Eventos para los botones de "Eliminar" y el input de cantidad del carrito
+    // Eliminar ítem del carrito: devolver al producto la cantidad exacta del item.
     const removeButton = e.target.closest('.remove-from-cart-btn');
     if (removeButton) {
         const productId = removeButton.dataset.productId;
-        store.cart.removeItem(productId);
-        // Encuentra el producto y devuelve su stock al valor original
-        const originalProduct = store.products.find(p => p.id === productId);
-        if (originalProduct) {
-            originalProduct.stock += 1;
+        const item = store.cart.items.find(i => i.product.id === productId);
+        if (item) {
+            const prod = store.getProductById(productId);
+            if (prod) {
+                prod.stock = Number(prod.stock) + Number(item.quantity);
+            }
+            store.cart.removeItem(productId);
+            store.saveProducts();
+            renderCart();
+            applyFilters();
         }
-        store.saveProducts();
-        renderCart();
-        applyFilters();
     }
 });
 
 // Manejo del cambio de cantidad en el carrito
+// Ajusta stock según la diferencia entre la nueva cantidad y la antigua.
 document.addEventListener('change', (e) => {
     if (e.target.classList.contains('cart-item-quantity')) {
         const input = e.target;
         const productId = input.dataset.productId;
-        const newQuantity = parseInt(input.value);
+        const newQuantity = parseInt(input.value, 10);
 
-        if (!isNaN(newQuantity) && newQuantity > 0) {
-            store.cart.updateQuantity(productId, newQuantity);
-        } else {
-            input.value = 1;
-            store.cart.updateQuantity(productId, 1);
+        const item = store.cart.items.find(i => i.product.id === productId);
+        if (!item) {
+            return;
         }
+        const prod = store.getProductById(productId);
+        const oldQty = Number(item.quantity);
+
+        if (isNaN(newQuantity) || newQuantity < 1) {
+            input.value = oldQty;
+            return;
+        }
+
+        const delta = newQuantity - oldQty;
+        if (delta > 0) {
+            if (!prod || prod.stock < delta) {
+                input.value = oldQty;
+                alert('No hay suficiente stock disponible para esa cantidad.');
+                return;
+            }
+            prod.stock = Number(prod.stock) - delta;
+            item.quantity = newQuantity;
+            store.cart.save();
+            store.saveProducts();
+        } else if (delta < 0) {
+            const toReturn = Math.abs(delta);
+            if (prod) {
+                prod.stock = Number(prod.stock) + toReturn;
+            }
+            item.quantity = newQuantity;
+            store.cart.save();
+            store.saveProducts();
+        }
+
         renderCart();
         applyFilters();
     }
 });
-
 
 // Espera a que la pagina esté cargada para cargar los productos
 // Carga los productos de productos.json
@@ -298,6 +372,8 @@ document.addEventListener('change', (e) => {
 document.addEventListener('DOMContentLoaded', async () => {
     await store.loadProducts();
 
+    reconcileCartWithProducts();
+
     filteredProducts = store.products;
     renderProducts(filteredProducts);
     renderCart();
@@ -306,4 +382,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (productsGrid) {
         setupFilters();
     }
+
+    // Mostrar destacados en HOME al cargar.
+    renderFeaturedOnHome();
 });

@@ -154,6 +154,7 @@ a {
     font-size: 2rem;
     background: linear-gradient(90deg, #0d6efd, #6610f2, #0dcaf0);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     position: relative;
 }

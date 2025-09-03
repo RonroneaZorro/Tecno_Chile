@@ -2,31 +2,111 @@
     {
         "id": "prod-mouseGamer-001",
         "code": "MG001",
-        "name": "Mouse Gamer V1",
-        "description": ".",
+        "name": "Mouse Óptico Gamer Ultraligero RGB - Rendimiento Superior",
+        "description": "Ligero y preciso, este mouse gamer con iluminación RGB te dará la ventaja competitiva que necesitas. Ideal para jugadas rápidas y control total.",
         "price": 199000,
         "stock": 4,
-        "imageSrc": "assets/images/carrito/mouse.png",
+        "imageSrc": "assets/images/carrito/mouse1.png",
+        "category": "mouses"
+    },
+    {
+        "id": "prod-mouseGamer-002",
+        "code": "MG002",
+        "name": "Mouse Gamer Inalámbrico - Libertad y Precisión",
+        "description": "Sin cables, sin límites. Este mouse inalámbrico ofrece una conexión ultrarrápida y un seguimiento preciso. La batería de larga duración asegura que tus sesiones de juego no se interrumpan.",
+        "price": 500000,
+        "stock": 2,
+        "imageSrc": "assets/images/carrito/mouse2.png",
+        "category": "mouses"
+    },
+    {
+        "id": "prod-mouseGamer-003",
+        "code": "MG003",
+        "name": "Mouse Gamer de Alta Precisión - El Control en tus Manos",
+        "description": "Este mouse está diseñado para ofrecer una precisión inigualable y una respuesta inmediata. Con un diseño ambidiestro y una iluminación personalizable, se adapta a tu estilo de juego.",
+        "price": 350000,
+        "stock": 2,
+        "imageSrc": "assets/images/carrito/mouse3.png",
+        "category": "mouses"
+    },
+    {
+        "id": "prod-mouseGamer-004",
+        "code": "MG004",
+        "name": "Mouse Gamer con Diseño Exclusivo - Diferénciate del Resto",
+        "description": "Con su diseño futurista y su iluminación personalizable, este mouse no solo te brinda un control excepcional, sino que también destaca en cualquier escritorio.",
+        "price": 990000,
+        "stock": 1,
+        "imageSrc": "assets/images/carrito/mouse4.png",
         "category": "mouses"
     },
     {
         "id": "prod-teclado-001",
         "code": "T001",
-        "name": "Teclado V1",
-        "description": ".",
-        "price": 150000,
-        "stock": 2,
-        "imageSrc": "assets/images/carrito/teclado.png",
+        "name": "Teclado Gamer Mecánico RGB - Rendimiento y Estilo",
+        "description": "Experimenta la máxima respuesta con este teclado mecánico retroiluminado RGB. Diseñado para gamers, ofrece durabilidad y una personalización total para tus sesiones de juego.",
+        "price": 330000,
+        "stock": 10,
+        "imageSrc": "assets/images/carrito/teclado1.png",
+        "category": "teclados"
+    },
+    {
+        "id": "prod-teclado-002",
+        "code": "T002",
+        "name": "Teclado Inalámbrico de Escritorio - Comodidad y Eficiencia",
+        "description": "ELibérate de los cables con este elegante teclado inalámbrico. Su diseño minimalista y teclas de perfil bajo ofrecen una experiencia de escritura cómoda y silenciosa, ideal para cualquier espacio de trabajo.",
+        "price": 500000,
+        "stock": 15,
+        "imageSrc": "assets/images/carrito/teclado2.png",
+        "category": "teclados"
+    },
+    {
+        "id": "prod-teclado-003",
+        "code": "T003",
+        "name": "Teclado Gamer Mecánico - Iluminación y Rendimiento",
+        "description": "Diseñado para la victoria, este teclado mecánico con iluminación RGB ofrece la velocidad y durabilidad que los gamers exigen. Sus teclas de respuesta rápida te darán la ventaja en cada partida.",
+        "price": 800000,
+        "stock": 5,
+        "imageSrc": "assets/images/carrito/teclado3.png",
+        "category": "teclados"
+    },
+    {
+        "id": "prod-teclado-004",
+        "code": "T004",
+        "name": "Teclado Gamer Mecánico - Durabilidad y Confort",
+        "description": "Este teclado mecánico combina la durabilidad con el confort. Su diseño robusto y las teclas ergonómicas aseguran un rendimiento óptimo en cada pulsación, mientras que la iluminación RGB dinámica añade un toque vibrante.",
+        "price": 999000,
+        "stock": 7,
+        "imageSrc": "assets/images/carrito/teclado4.png",
         "category": "teclados"
     },
     {
         "id": "prod-monitor-001",
         "code": "M001",
-        "name": "Monitor V1",
-        "description": ".",
-        "price": 2999000,
+        "name": "Monitor Hyperion QHD",
+        "description": "Panel de 27 pulgadas, resolución Full HD (1920x1080). Colores vibrantes y gran calidad gráfica.",
+        "price": 1999000,
+        "stock": 9,
+        "imageSrc": "assets/images/carrito/monitor1.png",
+        "category": "monitores"
+    },
+    {
+        "id": "prod-monitor-002",
+        "code": "M002",
+        "name": "Monitor Specter 4K",
+        "description": "Tecnología de baja luz azul. Minimiza la fatiga visual para sesiones largas.",
+        "price": 1470000,
+        "stock": 3,
+        "imageSrc": "assets/images/carrito/monitor2.png",
+        "category": "monitores"
+    },
+    {
+        "id": "prod-monitor-003",
+        "code": "M003",
+        "name": "Monitor Visionary Pro",
+        "description": "Tiempo de respuesta de 1ms. Elimina el desenfoque de movimiento en juegos de acción.",
+        "price": 2001001,
         "stock": 1,
-        "imageSrc": "assets/images/carrito/monitor.png",
+        "imageSrc": "assets/images/carrito/monitor3.png",
         "category": "monitores"
     }
 ]   
