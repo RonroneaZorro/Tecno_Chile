@@ -100,18 +100,23 @@
 
     <!-- Offcanvas carrito -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="cartOffcanvasLabel">Carrito de compras</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+        <div class="offcanvas-header bg-dark text-white">
+            <h5 class="offcanvas-title text-white" id="cartOffcanvasLabel">Tu Carro</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <div id="cartItemsList"></div>
-            <div id="emptyCartMessage" class="text-center mt-3">Tu carrito está vacío</div>
-            <div id="cartSummaryDetails" class="mt-3"></div>
+            <p id="emptyCartMessage" class="text-center text-muted">Tu carrito está vacío :C . ¡Sigue buscando en
+                nuestros productos!</p>
+            <div id="cartItemsList">
+            </div>
+            <div id="cartSummaryDetails" class="mt-4">
+            </div>
         </div>
-        <div id="cartOffcanvasFooterButtons" class="offcanvas-footer d-flex justify-content-between p-3">
-            <button id="clearCartButton" class="btn btn-outline-danger">Vaciar Carrito</button>
-            <button id="confirmPurchaseButton" class="btn btn-success">Confirmar Compra</button>
+        <div class="offcanvas-footer border-top p-3 d-flex justify-content-between" id="cartOffcanvasFooterButtons"
+            style="display:none;">
+            <button class="btn btn-success w-50 me-2" id="confirmPurchaseButton">Comprar</button>
+            <button class="btn btn-danger w-50" id="clearCartButton">Vaciar Carrito</button>
         </div>
     </div>
 
