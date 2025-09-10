@@ -26,6 +26,18 @@ const cartOffcanvasFooterButtons = document.getElementById('cartOffcanvasFooterB
 
 const IS_HOME = !!document.getElementById('productsGridContainer') && !document.getElementById('applyFiltersButton');
 
+// Listener para sincronizar stock en tiempo real con otro JS (gestionInventario.js)
+window.addEventListener('storage', (e) => {
+    if (e.key === 'products') {
+        // Recargar productos desde localStorage
+        store.products = JSON.parse(localStorage.getItem('products')) || [];
+
+        // Re-renderizar productos y carrito con stock actualizado
+        renderProducts(filteredProducts);
+        renderCart();
+        updateCartBadge();
+    }
+});
 
 // Carrito con productos existentes (para stock correcto)
 function reconcileCartWithProducts() {
@@ -190,7 +202,7 @@ document.addEventListener('click', (e) => {
             if (availableStock > 0) {
                 const added = store.cart.addItem(product, 1);
                 if (added) {
-                    product.stock = Math.max(0, Number(product.stock) - 1);
+                    product.stock = Math.max(0, Number(product.stock));
                     store.saveProducts();
                     applyFilters();
                     renderCart();
@@ -209,7 +221,7 @@ document.addEventListener('click', (e) => {
         if (item) {
             const prod = store.getProductById(productId);
             if (prod) {
-                prod.stock = Number(prod.stock) + Number(item.quantity);
+                prod.stock = Number(prod.stock) + Number(item.quantity) -1;
             }
             store.cart.removeItem(productId);
             store.saveProducts();
@@ -263,7 +275,7 @@ clearCartButton?.addEventListener('click', () => {
     store.cart.items.forEach(item => {
         const prod = store.getProductById(item.product.id);
         if (prod) {
-            prod.stock = Number(prod.stock) + Number(item.quantity);
+            prod.stock = Number(prod.stock);
         }
     });
     store.cart.clear();

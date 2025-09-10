@@ -74,7 +74,7 @@ export class Cart {
         );
 
         this.IVA_RATE = 0.19;
-        this.DESPATCH_CHARGE_RATE = 0.05;
+        this.DESPATCH_CHARGE_RATE = 0.11;
         this.DESPATCH_CHARGE_THRESHOLD = 100000;
     }
 
