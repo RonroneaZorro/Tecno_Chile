@@ -112,7 +112,6 @@ tableBody.addEventListener('click', async e => {
             };
             store.products.push(newProduct);
         }
-
         await store.saveProducts();
         renderTable(store.products); // actualiza la tabla
         addProductBtn.disabled = false;

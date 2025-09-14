@@ -93,17 +93,19 @@ body {
 }
 
 .footer__title {
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   text-align: center;
-  margin-bottom: 0.5rem;
+  margin: auto;
 }
 
 .footer__content {
+  font-size: 1rem;
   list-style: none;
   display: flex;
   gap: 10px;
   padding: 0;
-  margin: 0;
+  margin-bottom: 0.5rem;
+  
 }
 
 a {
@@ -114,7 +116,8 @@ a {
 .footer__social {
   display: flex;
   gap: 10px;
-  margin-top: 0.5rem;
+  margin: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .footer__social img {

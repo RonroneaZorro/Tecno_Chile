@@ -1,3 +1,23 @@
+//=========================== CONTROLADOR DE LA TIENDA ====================================
+// JS tiendaControlador.js
+// Controlador de la tienda, gestiona los productos, el carrito y el cliente
+// Los productos se cargan desde productos.json
+// Se crea una tienda
+// Se fijan los elementos del DOM
+// - Sincronizar stock en tiempo real con otro JS (gestionInventario.js)
+// - Renderizar productos destacados en Home
+// - Renderizar productos en la tienda // Productos en tienda
+// - Renderizar productos en el carrito // Productos en el carrito
+// - Manejo del carrito // Input manual
+// - Manejo de botones en el carrito // Agregar al carrito (página) , icono eliminar del carrito, vaciar carrito, confirmar compra
+// - Formulario de checkout // Formulario de compra
+// - Funciones auxiliares
+// -- Carrito con productos existentes (para stock correcto)
+// -- Número de productos en el badge del carrito
+// -- Filtros
+
+//=========================== CONTROLADOR DE LA TIENDA ====================================
+
 // Trae los productos de productos.json, con sus respectivos precios y stocks
 import { StoreManager, Product, CartItem, Cart } from './productosModelo.js';
 
@@ -26,6 +46,8 @@ const cartOffcanvasFooterButtons = document.getElementById('cartOffcanvasFooterB
 
 const IS_HOME = !!document.getElementById('productsGridContainer') && !document.getElementById('applyFiltersButton');
 
+//=========================== SINCRONIZACIÓN DE STOCK ====================================
+
 // Listener para sincronizar stock en tiempo real con otro JS (gestionInventario.js)
 window.addEventListener('storage', (e) => {
     if (e.key === 'products') {
@@ -39,19 +61,7 @@ window.addEventListener('storage', (e) => {
     }
 });
 
-// Carrito con productos existentes (para stock correcto)
-function reconcileCartWithProducts() {
-    const keptItems = [];
-    store.cart.items.forEach(item => {
-        const prod = store.getProductById(item.product.id);
-        if (prod && item.quantity > 0) {
-            item.product = prod;
-            keptItems.push(item);
-        }
-    });
-    store.cart.items = keptItems;
-    store.cart.save();
-}
+//=========================== RENDERIZADO DE PRODUCTOS DESTACADOS EN HOME ====================================
 
 // Productos destacados en Home considerando stock real
 function renderFeaturedOnHome() {
@@ -67,74 +77,7 @@ function renderFeaturedOnHome() {
     renderProducts(filteredProducts);
 }
 
-// Si el carrito esta vacio, muesta un mensaje de "carrito vacio"
-// Si hay productos, muestra Nombre, Cantidad, Precio, Total y botones para limpiar y confirmar compra
-function renderCart() {
-    if (!cartItemsList) return;
-
-    cartItemsList.innerHTML = '';
-
-    if (store.cart.items.length === 0) {
-        if (cartSummaryDetails) cartSummaryDetails.style.display = 'none';
-        if (emptyCartMessage) emptyCartMessage.style.display = 'block';
-        if (cartOffcanvasFooterButtons) cartOffcanvasFooterButtons.style.display = 'none';
-    } else {
-        if (cartSummaryDetails) cartSummaryDetails.style.display = 'block';
-        if (emptyCartMessage) emptyCartMessage.style.display = 'none';
-        if (cartOffcanvasFooterButtons) cartOffcanvasFooterButtons.style.display = 'flex';
-
-        store.cart.items.forEach(item => {
-            const itemTotal = item.total;
-            const colProduct = store.getProductById(item.product.id);
-            const maxStock = colProduct ? colProduct.stock + item.quantity : item.quantity;
-
-            const itemDiv = document.createElement('div');
-            itemDiv.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mb-2', 'py-2', 'border-bottom');
-
-            // Separa nombre y cantidad de precio y botón, evitando que el nombre largo empuje el precio
-            itemDiv.innerHTML = `
-                <div class="d-flex justify-content-between align-items-center w-100">
-                    <div class="me-2 flex-grow-1 text-truncate">
-                        <span class="fw-bold">${item.product.name}</span><br>
-                        <input type="number" class="form-control form-control-sm cart-item-quantity mt-1"
-                               value="${item.quantity}" min="1" max="${maxStock}"
-                               data-product-id="${item.product.id}">
-                    </div>
-                    <div class="text-end d-flex flex-column align-items-end">
-                        <span class="fw-bold">$${Math.round(itemTotal).toLocaleString('es-CL')}</span>
-                        <button class="btn btn-sm btn-outline-danger mt-1 remove-from-cart-btn" data-product-id="${item.product.id}">
-                            <i class="bi bi-trash-fill"></i>
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            cartItemsList.appendChild(itemDiv);
-        });
-
-        if (cartSummaryDetails) {
-            const { subtotal, iva, despatchCharge, total } = store.cart.totalValue;
-            cartSummaryDetails.innerHTML = `
-                <div class="d-flex justify-content-between"><span>Subtotal Neto:</span><span class="fw-bold">$${Math.round(subtotal).toLocaleString('es-CL')}</span></div>
-                <div class="d-flex justify-content-between"><span>IVA (19%):</span><span class="fw-bold">$${Math.round(iva).toLocaleString('es-CL')}</span></div>
-                <div class="d-flex justify-content-between"><span>Cargo Despacho:</span><span class="fw-bold">$${Math.round(despatchCharge).toLocaleString('es-CL')}</span></div>
-                <hr>
-                <div class="d-flex justify-content-between"><h4>Total:</h4><h4 class="fw-bold text-dark">$${Math.round(total).toLocaleString('es-CL')}</h4></div>
-            `;
-        }
-    }
-
-    updateCartBadge();
-    renderFeaturedOnHome();
-}
-
-// Muestra el badge con la cantidad de productos en el carrito en el navbar
-function updateCartBadge() {
-    if (!cartItemsCountBadge) return;
-    const totalItemsInCart = store.cart.totalItems;
-    cartItemsCountBadge.textContent = totalItemsInCart;
-    cartItemsCountBadge.style.display = totalItemsInCart > 0 ? 'inline-block' : 'none';
-}
+//=========================== RENDERIZADO DE PRODUCTOS EN TIENDA ====================================
 
 // Muestra los productos dentro de la tienda.
 function renderProducts(productsToRender) {
@@ -188,106 +131,190 @@ function renderStockMessage(stock) {
     return '';
 }
 
-// Eventos para "Agregar al carrito" y "Eliminar del carrito"
-document.addEventListener('click', (e) => {
-    const button = e.target.closest('.add-to-cart-btn');
-    if (button) {
-        const productId = button.dataset.productId;
-        const product = store.getProductById(productId);
-        if (product) {
-            const existingCartItem = store.cart.items.find(i => i.product.id === productId);
-            const cartQty = existingCartItem ? Number(existingCartItem.quantity) : 0;
-            const availableStock = Number(product.stock) - cartQty;
+//=========================== RENDERIZADO DEL CARRITO ====================================
 
-            if (availableStock > 0) {
-                const added = store.cart.addItem(product, 1);
-                if (added) {
-                    product.stock = Math.max(0, Number(product.stock));
-                    store.saveProducts();
-                    applyFilters();
-                    renderCart();
-                    if (cartOffcanvas) cartOffcanvas.show();
-                }
-            } else {
-                console.warn('Intento de agregar sin stock');
-            }
+// Si el carrito esta vacio, muesta un mensaje de "carrito vacio"
+// Si hay productos, muestra Nombre, Cantidad, Precio, Total y botones para limpiar y confirmar compra
+function renderCart() {
+    if (!cartItemsList) return; // No hay carrito
+
+    cartItemsList.innerHTML = ''; // Limpiar carrito
+
+    if (store.cart.items.length === 0) { // Si el carrito esta vacio
+        if (cartSummaryDetails) cartSummaryDetails.style.display = 'none'; // Ocultar resumen
+        if (emptyCartMessage) emptyCartMessage.style.display = 'block'; // Mostrar "carrito vacio"
+        if (cartOffcanvasFooterButtons) cartOffcanvasFooterButtons.style.display = 'none'; // Ocultar botones
+    } else { // Si el carrito tiene productos
+        if (cartSummaryDetails) cartSummaryDetails.style.display = 'block'; // Mostrar resumen
+        if (emptyCartMessage) emptyCartMessage.style.display = 'none'; // Ocultar "carrito vacio"
+        if (cartOffcanvasFooterButtons) cartOffcanvasFooterButtons.style.display = 'flex'; // Mostrar botones
+
+        store.cart.items.forEach(item => { // Por cada item
+            const itemTotal = item.total; // Total del item = precio * cantidad 
+            const colProduct = store.getProductById(item.product.id); // Busca el producto por su ID
+            const maxStock = colProduct ? colProduct.stock : item.quantity; // Stock maximo
+console.log(`stock maximo: ${maxStock} y cantidad: ${item.quantity}`);
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mb-2', 'py-2', 'border-bottom');
+
+            // Separa nombre y cantidad de precio y botón, evitando que el nombre largo empuje el precio
+            itemDiv.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <div class="me-2 flex-grow-1 text-truncate">
+                        <span class="fw-bold">${item.product.name}</span><br>
+                        <input type="number" class="form-control form-control-sm cart-item-quantity mt-1"
+                               value="${item.quantity}" min="1" max="${maxStock}" step="1" 
+                               data-product-id="${item.product.id}">
+                    </div>
+                    <div class="text-end d-flex flex-column align-items-end">
+                        <span class="fw-bold">$${Math.round(itemTotal).toLocaleString('es-CL')}</span>
+                        <button class="btn btn-sm btn-outline-danger mt-1 remove-from-cart-btn" data-product-id="${item.product.id}">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            cartItemsList.appendChild(itemDiv);
+        });
+
+        if (cartSummaryDetails) {
+            const { subtotal, iva, despatchCharge, total } = store.cart.totalValue;
+            cartSummaryDetails.innerHTML = `
+                <div class="d-flex justify-content-between"><span>Subtotal Neto:</span><span class="fw-bold">$${Math.round(subtotal).toLocaleString('es-CL')}</span></div>
+                <div class="d-flex justify-content-between"><span>IVA (19%):</span><span class="fw-bold">$${Math.round(iva).toLocaleString('es-CL')}</span></div>
+                <div class="d-flex justify-content-between"><span>Cargo Despacho:</span><span class="fw-bold">$${Math.round(despatchCharge).toLocaleString('es-CL')}</span></div>
+                <hr>
+                <div class="d-flex justify-content-between"><h4>Total:</h4><h4 class="fw-bold text-dark">$${Math.round(total).toLocaleString('es-CL')}</h4></div>
+            `;
         }
     }
 
-    const removeButton = e.target.closest('.remove-from-cart-btn');
-    if (removeButton) {
-        const productId = removeButton.dataset.productId;
-        const item = store.cart.items.find(i => i.product.id === productId);
-        if (item) {
-            const prod = store.getProductById(productId);
-            if (prod) {
-                prod.stock = Number(prod.stock) + Number(item.quantity) -1;
-            }
-            store.cart.removeItem(productId);
-            store.saveProducts();
-            renderCart();
-            applyFilters();
-        }
-    }
-});
+    updateCartBadge();
+    renderFeaturedOnHome();
+}
+
+//=========================== MANEJO DEL CARRITO ====================================
 
 // Manejo del cambio de cantidad en el carrito
-document.addEventListener('change', (e) => {
-    if (!e.target.classList.contains('cart-item-quantity')) return;
+document.addEventListener('change', (e) => { // Cambio de cantidad
 
-    const input = e.target;
-    const productId = input.dataset.productId;
-    const newQuantity = parseInt(input.value, 10);
+    if (!e.target.classList.contains('cart-item-quantity')) return; // Verificar si el input es de la cantidad
+    const input = e.target; // input
+    const productId = input.dataset.productId; // ID del producto
+    const newQuantity = parseInt(input.value, 10); // Nueva cantidad
+    const item = store.cart.items.find(i => i.product.id === productId); // Producto en el carrito
 
-    const item = store.cart.items.find(i => i.product.id === productId);
-    if (!item) return;
+    if (!item) return; // Verificar si el producto existe
+    const prod = store.getProductById(productId); // Producto
+    const oldQty = Number(item.quantity); // Cantidad anterior
 
-    const prod = store.getProductById(productId);
-    const oldQty = Number(item.quantity);
-
-    if (isNaN(newQuantity) || newQuantity < 1) {
+    if (isNaN(newQuantity) || newQuantity < 1) { // Verificar si la nueva cantidad es válida / si no es un número o si es menor a 1
         input.value = oldQty;
         return;
     }
 
-    const delta = newQuantity - oldQty;
-    if (delta > 0) {
-        if (!prod || prod.stock < delta) {
+    const diff = oldQty - newQuantity; // Diferencia entre la cantidad anterior y la nueva / siempre deberían ser positivas
+
+    if (diff < 0) {
+        if (!prod || prod.stock + diff < 0) {
             input.value = oldQty;
             alert('No hay suficiente stock disponible para esa cantidad.');
             return;
         }
-        prod.stock = Number(prod.stock) - delta;
+        prod.stock += diff;
         item.quantity = newQuantity;
-    } else if (delta < 0) {
-        const toReturn = Math.abs(delta);
-        if (prod) prod.stock = Number(prod.stock) + toReturn;
+    } else if (diff > 0) {
+        prod.stock += Math.abs(diff);
         item.quantity = newQuantity;
     }
+
     store.cart.save();
     store.saveProducts();
     renderCart();
     applyFilters();
 });
 
-// Vaciar carrito
-clearCartButton?.addEventListener('click', () => {
-    store.cart.items.forEach(item => {
-        const prod = store.getProductById(item.product.id);
-        if (prod) {
-            prod.stock = Number(prod.stock);
+//=========================== ENVENTOS DEL CARRITO (BOTONES) ====================================
+
+document.addEventListener('click', (e) => {
+
+    // ----------- AGREGAR AL CARRITO (botón .add-to-cart-btn) -----------
+    const addBtn = e.target.closest('.add-to-cart-btn');
+    if (addBtn) { // Verificar si el botón es de agregar
+        const productId = addBtn.dataset.productId; // ID del producto
+        const product = store.getProductById(productId); // Producto
+
+        if (product) {
+            const cartItem = store.cart.items.find(i => i.product.id === productId); // Producto en el carrito
+            const cartQty = cartItem ? Number(cartItem.quantity) : 0; // Cantidad en el carrito
+            const stock = Number(product.stock) - cartQty; // Stock disponible
+
+            if (stock > 0) { // Verificar stock
+                const added = store.cart.addItem(product, 1); // Agregar al carrito
+                store.saveProducts();
+                applyFilters();
+                renderCart();
+                if (cartOffcanvas) cartOffcanvas.show();
+            }
         }
-    });
-    store.cart.clear();
-    store.saveProducts();
-    renderCart();
-    applyFilters();
+    }
+
+    // ----------- ELIMINAR DEL CARRITO (botón .remove-from-cart-btn) -----------
+    const removeBtn = e.target.closest('.remove-from-cart-btn');
+    if (removeBtn) { // Verificar si el botón es de eliminar
+        const productId = removeBtn.dataset.productId; // ID del producto
+        const product = store.getProductById(productId); // Producto
+        const cartItem = store.cart.items.find(i => i.product.id === productId); // Producto en el carrito
+
+        const cartQty = cartItem ? Number(cartItem.quantity) : 0; // Cantidad en el carrito
+        const stock = Number(product.stock) - cartQty; // Stock disponible
+        
+        // elimina del carrito
+        store.cart.removeItem(productId);
+
+        // actualiza el stock del producto
+        if (product && Number(product.stock) === stock) {
+            product.stock = stock + cartQty; // Suma las cantidades de vuelta
+        }
+
+        store.cart.save();
+        store.saveProducts();
+        applyFilters();
+        renderCart();
+        return;
+    }
+
+    // ----------- VACIAR CARRITO (botón DOM referenciado por clearCartButton) -----------
+    if (typeof clearCartButton !== 'undefined' && clearCartButton && (e.target === clearCartButton || clearCartButton.contains(e.target))) {
+        store.cart.items.forEach(cartItem => { // Recorre los productos en el carrito
+            const product = store.getProductById(cartItem.product.id); // Producto en el carrito
+            if (product) { // Verificar si el producto existe
+                console.log(`Producto: ${product.name}, Stock antes: ${product.stock}, Cantidad devuelta: ${cartItem.quantity}`);
+                product.stock =  Number(product.stock); 
+                console.log(`Stock después: ${product.stock}`);
+            }
+        });
+
+        // Vaciar carrito
+        store.cart.clear();
+
+        // Guardar cambios y actualizar vista
+        store.cart.save();
+        store.saveProducts();
+        applyFilters();
+        renderCart();
+        return;
+    }
+
+    // --- CONFIRMAR COMPRA (botón DOM referenciado por confirmPurchaseButton) ---
+    if (typeof confirmPurchaseButton !== 'undefined' && confirmPurchaseButton && (e.target === confirmPurchaseButton || confirmPurchaseButton.contains(e.target))) {
+        checkoutModal?.show();
+        return;
+    }
 });
 
-// Confirmar compra
-confirmPurchaseButton?.addEventListener('click', () => {
-    checkoutModal?.show();
-});
+//============================ ENVENTOS DE CHECKOUT ====================================
 
 // Checkout
 checkoutForm?.addEventListener('submit', (event) => {
@@ -309,6 +336,32 @@ successSendModalEl?.addEventListener('hidden.bs.modal', () => {
     checkoutForm.reset();
     checkoutForm.classList.remove('was-validated');
 });
+
+//============================ FUNCIONES AUXILIARES ====================================
+
+// Carrito con productos existentes (para stock correcto)
+function reconcileCartWithProducts() {
+    const keptItems = [];
+    store.cart.items.forEach(item => {
+        const prod = store.getProductById(item.product.id);
+        if (prod && item.quantity > 0) {
+            item.product = prod;
+            keptItems.push(item);
+        }
+    });
+    store.cart.items = keptItems;
+    store.cart.save();
+}
+
+
+// Muestra el badge con la cantidad de productos en el carrito en el navbar
+function updateCartBadge() {
+    if (!cartItemsCountBadge) return;
+    const totalItemsInCart = store.cart.totalItems;
+    cartItemsCountBadge.textContent = totalItemsInCart;
+    cartItemsCountBadge.style.display = totalItemsInCart > 0 ? 'inline-block' : 'none';
+}
+
 
 // Aplicar filtros
 function applyFilters() {
@@ -381,4 +434,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (productsGrid) setupFilters();
 
     renderFeaturedOnHome();
-});
+}); 
