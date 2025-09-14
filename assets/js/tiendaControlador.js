@@ -125,7 +125,7 @@ function renderProducts(productsToRender) {
 }
 
 function renderStockMessage(stock) {
-    if (stock <= 0) return `<span class="badge bg-secondary">Agotado</span>`;
+    if (stock <= 0) return `<span class="badge bg-secondary">Reservalo por whatsapp !</span>`;
     if (stock === 1) return `<span class="badge bg-warning text-dark">Última unidad, ¡No te lo pierdas!</span>`;
     if (stock > 1 && stock <= 4) return `<span class="badge bg-warning text-dark">Sólo ${stock} en stock</span>`;
     return '';
@@ -136,6 +136,7 @@ function renderStockMessage(stock) {
 // Si el carrito esta vacio, muesta un mensaje de "carrito vacio"
 // Si hay productos, muestra Nombre, Cantidad, Precio, Total y botones para limpiar y confirmar compra
 function renderCart() {
+ 
     if (!cartItemsList) return; // No hay carrito
 
     cartItemsList.innerHTML = ''; // Limpiar carrito
@@ -152,8 +153,8 @@ function renderCart() {
         store.cart.items.forEach(item => { // Por cada item
             const itemTotal = item.total; // Total del item = precio * cantidad 
             const colProduct = store.getProductById(item.product.id); // Busca el producto por su ID
-            const maxStock = colProduct ? colProduct.stock : item.quantity; // Stock maximo
-console.log(`stock maximo: ${maxStock} y cantidad: ${item.quantity}`);
+            const maxStock = colProduct ? colProduct.stock : item.quantity; // Stock maximo del producto
+
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mb-2', 'py-2', 'border-bottom');
 
@@ -161,7 +162,7 @@ console.log(`stock maximo: ${maxStock} y cantidad: ${item.quantity}`);
             itemDiv.innerHTML = `
                 <div class="d-flex justify-content-between align-items-center w-100">
                     <div class="me-2 flex-grow-1 text-truncate">
-                        <span class="fw-bold">${item.product.name}</span><br>
+                        <span class="fw-bold">${item.product.name}</span><br> 
                         <input type="number" class="form-control form-control-sm cart-item-quantity mt-1"
                                value="${item.quantity}" min="1" max="${maxStock}" step="1" 
                                data-product-id="${item.product.id}">
@@ -198,8 +199,7 @@ console.log(`stock maximo: ${maxStock} y cantidad: ${item.quantity}`);
 
 // Manejo del cambio de cantidad en el carrito
 document.addEventListener('change', (e) => { // Cambio de cantidad
-
-    if (!e.target.classList.contains('cart-item-quantity')) return; // Verificar si el input es de la cantidad
+    if (!e.target.classList.contains('cart-item-quantity')) return; // Verificar si el input es de cantidad
     const input = e.target; // input
     const productId = input.dataset.productId; // ID del producto
     const newQuantity = parseInt(input.value, 10); // Nueva cantidad
@@ -207,25 +207,21 @@ document.addEventListener('change', (e) => { // Cambio de cantidad
 
     if (!item) return; // Verificar si el producto existe
     const prod = store.getProductById(productId); // Producto
-    const oldQty = Number(item.quantity); // Cantidad anterior
+    const stock = prod.stock; // Stock del producto
+    const oldQty = Number(item.quantity); // Cantidad anterior en el carrito, antes de modificar
 
     if (isNaN(newQuantity) || newQuantity < 1) { // Verificar si la nueva cantidad es válida / si no es un número o si es menor a 1
         input.value = oldQty;
         return;
     }
 
-    const diff = oldQty - newQuantity; // Diferencia entre la cantidad anterior y la nueva / siempre deberían ser positivas
+    const diff = stock - newQuantity; // Diferencia entre la cantidad anterior y la nueva 
 
     if (diff < 0) {
-        if (!prod || prod.stock + diff < 0) {
-            input.value = oldQty;
+            input.value = oldQty; // Restaurar la cantidad anterior antes de modificar el input
             alert('No hay suficiente stock disponible para esa cantidad.');
             return;
-        }
-        prod.stock += diff;
-        item.quantity = newQuantity;
-    } else if (diff > 0) {
-        prod.stock += Math.abs(diff);
+    } else if (diff >= 0) {
         item.quantity = newQuantity;
     }
 
@@ -269,7 +265,7 @@ document.addEventListener('click', (e) => {
 
         const cartQty = cartItem ? Number(cartItem.quantity) : 0; // Cantidad en el carrito
         const stock = Number(product.stock) - cartQty; // Stock disponible
-        
+
         // elimina del carrito
         store.cart.removeItem(productId);
 
@@ -290,9 +286,7 @@ document.addEventListener('click', (e) => {
         store.cart.items.forEach(cartItem => { // Recorre los productos en el carrito
             const product = store.getProductById(cartItem.product.id); // Producto en el carrito
             if (product) { // Verificar si el producto existe
-                console.log(`Producto: ${product.name}, Stock antes: ${product.stock}, Cantidad devuelta: ${cartItem.quantity}`);
                 product.stock =  Number(product.stock); 
-                console.log(`Stock después: ${product.stock}`);
             }
         });
 
