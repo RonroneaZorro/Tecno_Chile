@@ -55,6 +55,8 @@ a {
   background-color: #02732d;
 }
 
+
+
 /* ---------- Body ---------- */
 
 body {
@@ -191,17 +193,5 @@ a {
     height: 6px;
     border-radius: 5px;
 }
-/*---------------- Carrito ----------------*/
 
 
-/* Quitar flechas en Chrome, Safari, Edge */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Quitar flechas en Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}

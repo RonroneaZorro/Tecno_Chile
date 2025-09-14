@@ -9,7 +9,7 @@
 // - Renderizar productos en la tienda // Productos en tienda
 // - Renderizar productos en el carrito // Productos en el carrito
 // - Manejo del carrito // Input manual
-// - Manejo de botones en el carrito // Agregar al carrito (página) , icono eliminar del carrito, vaciar carrito, confirmar compra
+// - Manejo de botones en el carrito // Agregar al carrito (página), icono eliminar del carrito, vaciar carrito, confirmar compra
 // - Formulario de checkout // Formulario de compra
 // - Funciones auxiliares
 // -- Carrito con productos existentes (para stock correcto)
@@ -136,7 +136,7 @@ function renderStockMessage(stock) {
 // Si el carrito esta vacio, muesta un mensaje de "carrito vacio"
 // Si hay productos, muestra Nombre, Cantidad, Precio, Total y botones para limpiar y confirmar compra
 function renderCart() {
- 
+
     if (!cartItemsList) return; // No hay carrito
 
     cartItemsList.innerHTML = ''; // Limpiar carrito
@@ -218,9 +218,9 @@ document.addEventListener('change', (e) => { // Cambio de cantidad
     const diff = stock - newQuantity; // Diferencia entre la cantidad anterior y la nueva 
 
     if (diff < 0) {
-            input.value = oldQty; // Restaurar la cantidad anterior antes de modificar el input
-            alert('No hay suficiente stock disponible para esa cantidad.');
-            return;
+        input.value = oldQty; // Restaurar la cantidad anterior antes de modificar el input
+        alert('No hay suficiente stock disponible para esa cantidad.');
+        return;
     } else if (diff >= 0) {
         item.quantity = newQuantity;
     }
@@ -286,7 +286,7 @@ document.addEventListener('click', (e) => {
         store.cart.items.forEach(cartItem => { // Recorre los productos en el carrito
             const product = store.getProductById(cartItem.product.id); // Producto en el carrito
             if (product) { // Verificar si el producto existe
-                product.stock =  Number(product.stock); 
+                product.stock = Number(product.stock);
             }
         });
 
@@ -303,6 +303,10 @@ document.addEventListener('click', (e) => {
 
     // --- CONFIRMAR COMPRA (botón DOM referenciado por confirmPurchaseButton) ---
     if (typeof confirmPurchaseButton !== 'undefined' && confirmPurchaseButton && (e.target === confirmPurchaseButton || confirmPurchaseButton.contains(e.target))) {
+        if (store.cart.items.length === 0) {
+            alert("Oops! Tu carrito está vacío. Agrega productos a tu carrito para continuar con tu compra.");
+            return;
+        }
         checkoutModal?.show();
         return;
     }
@@ -314,13 +318,24 @@ document.addEventListener('click', (e) => {
 checkoutForm?.addEventListener('submit', (event) => {
     event.preventDefault();
     event.stopPropagation();
+
     if (checkoutForm.checkValidity()) {
+        store.cart.items.forEach(cartItem => { // Recorre los productos en el carrito
+            const product = store.getProductById(cartItem.product.id); // Producto en el carrito
+            
+            if (product) {
+                product.stock = Math.max(0, Number(product.stock) - Number(cartItem.quantity)); // Descuenta el stock despues de la compra
+            }
+        });
+
+        store.saveProducts();
         const email = document.getElementById('clientEmail').value;
         sentEmailDisplay.textContent = email;
         checkoutModal?.hide();
         successSendModal?.show();
     }
     checkoutForm.classList.add('was-validated');
+
 });
 
 successSendModalEl?.addEventListener('hidden.bs.modal', () => {
