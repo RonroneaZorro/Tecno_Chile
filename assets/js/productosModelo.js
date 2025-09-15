@@ -152,33 +152,30 @@ export class StoreManager {
     // getProductById - devuelve un producto por su id
     // setClientName - establece el nombre y apellido del cliente
     async loadProducts() {
-        // Cargamos primero el JSON para asegurarnos de tener los precios correctos
-        // Luego combinamos con los stocks almacenados en localStorage para no perder el inventario actual
-        let jsonProducts = [];
-        try {
-            const resp = await fetch('./assets/js/productos.json');
-            const data = await resp.json();
-            jsonProducts = data.map(
+
+        const storedProducts = safeParseArray(localStorage.getItem(LS_PRODUCTS_KEY));
+        if (storedProducts.length > 0) {
+            this.products = storedProducts.map(
                 // Se asegura que los valores sean del tipo correcto
                 (p) => new Product(p.id, p.code, p.name, p.description, p.price, p.stock, p.imageSrc, p.category, p.tags)
             );
-        } catch (err) {
-            console.error('Error loading products.json:', err);
-            jsonProducts = [];
+        } else {
+            // Si no hay datos en localStorage, cargar desde JSON
+            try {
+                const resp = await fetch('./assets/js/productos.json');
+                const data = await resp.json();
+                this.products = data.map(
+                    (p) => new Product(p.id, p.code, p.name, p.description, p.price, p.stock, p.imageSrc, p.category, p.tags)
+                );
+                this.saveProducts(); // guardar la primera vez en localStorage
+
+
+            } catch (err) {
+                console.error('Error cargando products.json:', err);
+                this.products = [];
+            }
         }
 
-        // Recuperar productos guardados en localStorage solo para el stock
-        const storedProducts = safeParseArray(localStorage.getItem(LS_PRODUCTS_KEY));
-        this.products = jsonProducts.map((p) => {
-            const stored = storedProducts.find((sp) => sp.id === p.id);
-            if (stored) {
-                // Solo conservamos el stock del localStorage
-                p.stock = Number(stored.stock); 
-            }
-            return p;
-        });
-
-        this.saveProducts(); 
     }
 
     saveProducts() {
@@ -195,6 +192,12 @@ export class StoreManager {
         this.clientName = full;
         localStorage.setItem(LS_CLIENT_NAME, full);
         localStorage.setItem(LS_CLIENT_SURNAME, surname || '');
+    }
+
+    deleteProduct(id) {
+        this.products = this.products.filter(p => p.id !== id);
+        this.saveProducts(); // guardar cambios inmediatamente
+
     }
 }
 

@@ -50,12 +50,10 @@ const IS_HOME = !!document.getElementById('productsGridContainer') && !document.
 
 // Listener para sincronizar stock en tiempo real con otro JS (gestionInventario.js)
 window.addEventListener('storage', (e) => {
-    if (e.key === 'products') {
-        // Recargar productos desde localStorage
-        store.products = JSON.parse(localStorage.getItem('products')) || [];
-
-        // Re-renderizar productos y carrito con stock actualizado
-        renderProducts(filteredProducts);
+    if (e.key === 'LS_PRODUCTS_KEY') {
+        const updatedProducts = safeParseArray(e.newValue); // Actualiza el array de productos
+        store.products = updatedProducts; // Actualiza el array de productos en la tienda
+        applyFilters();
         renderCart();
         updateCartBadge();
     }
@@ -322,7 +320,7 @@ checkoutForm?.addEventListener('submit', (event) => {
     if (checkoutForm.checkValidity()) {
         store.cart.items.forEach(cartItem => { // Recorre los productos en el carrito
             const product = store.getProductById(cartItem.product.id); // Producto en el carrito
-            
+
             if (product) {
                 product.stock = Math.max(0, Number(product.stock) - Number(cartItem.quantity)); // Descuenta el stock despues de la compra
             }

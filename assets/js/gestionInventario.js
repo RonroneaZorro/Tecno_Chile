@@ -132,7 +132,6 @@ if (e.target.classList.contains('delete-btn')) {
         if (prod) {
             if (confirm('¿Seguro que quieres eliminar este producto?')) {
                 store.deleteProduct(prodId);
-                await store.saveProducts();
                 renderTable(store.products);
             }
         } else {
@@ -142,7 +141,6 @@ if (e.target.classList.contains('delete-btn')) {
         }
     }
 }
-
 
     // Imagen
     if (e.target.classList.contains('image-btn')) {
@@ -173,11 +171,13 @@ if (e.target.classList.contains('delete-btn')) {
 // Agregar producto
 addProductBtn.addEventListener('click', () => {
     const tr = document.createElement('tr');
+    tr.dataset.id = "new"; // identificador temporal
+
 
     tr.innerHTML = `
         <td><input type="text" class="form-control" value=""></td>
         <td><input type="text" class="form-control" value=""></td>
-        <td><input type="text" class="form-control" value=""></td>
+        <td><input type="text" class="form-control" value="" disabled></td>
         <td><input type="text" class="form-control" value=""></td>
         <td><input type="number" class="form-control" value=""></td>
         <td><input type="number" class="form-control" value=""></td>
